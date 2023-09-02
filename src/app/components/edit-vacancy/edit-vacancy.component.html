@@ -1,0 +1,15 @@
+<div>
+  <h1>Edit Vacancy</h1>
+  <form (submit)="updateVacancy()">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title"
+             [(ngModel)]="vacancy.title"
+             name="title" required>
+    </div>
+    <!-- Добавьте другие поля для редактирования вакансии -->
+    <div>
+      <button type="submit">Update Vacancy</button>
+    </div>
+  </form>
+</div>

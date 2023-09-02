@@ -1,0 +1,72 @@
+<div class="pt-16 pb-16">
+  <h1 class="w-full text-start text-2xl text-gray-900 dark:text-dark-gray_white font-bold pb-5">
+    Список вакансий
+  </h1>
+
+  <div class="w-12/12 px-6 md:space-x-6 xl:px-0">
+    <!-- Vacancy list -->
+    <div class="rounded-sm space-y-5 ">
+
+      <div class="
+           transition-all rounded-lg shadow bg-white border-[1px] border-gray-100 dark:border-gray-900
+           dark:bg-dark-secondary p-3 space-y-2 w-full hover:scale-[1.005]"
+           *ngFor="let vacancy of vacancies">
+
+        <div class="flex w-full items-center">
+          <h2 class="text-2xl font-semibold cursor-pointer"
+              [routerLink]="['/vacancy', vacancy.id]">{{vacancy?.title}} |
+          </h2>
+          <div class="flex mt-1">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round" class="text-slate-400 dark:stroke-secondary" aria-hidden="true">
+              <path d="M18 11.034C18 14.897 12 19 12 19s-6-4.103-6-7.966C6 7.655 8.819 5 12 5s6 2.655 6 6.034Z"/>
+              <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+            </svg>
+            <p class="text-gray-500 dark:text-dark_text">
+              {{vacancy?.city + ' : ' + vacancy?.region}}
+            </p>
+            <svg width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round" class="text-slate-400 dark:stroke-secondary mt-0.5" aria-hidden="true">
+              <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+            </svg>
+            <p class="flex text-gray-500 dark:text-secondary">
+              <span>Категория: {{vacancy?.type}}</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <p
+            class="w-full text-md text-gray-800 dark:text-dark_text hover:text-black dark:hover:text-white cursor-pointer"
+            [routerLink]="['/vacancy', vacancy.id]">
+            {{ truncateDescription(vacancy.sections[0].describe, 100)}}
+          </p>
+          <div class="w-full flex justify-end items-center space-x-3">
+            <a class="text-blue-600 font-semibold">
+              <button
+                class="p-2 font-semibold bg-green-500 dark:bg-secondary text-black rounded-sm hover:scale-[1.06] transition"
+                [routerLink]="['/vacancy', vacancy.id]">Подробнее
+              </button>
+            </a>
+            <a class="text-blue-600 font-semibold">
+              <button
+                class="p-2 font-semibold bg-yellow-300 text-black rounded-sm hover:scale-[1.06] transition"
+                [routerLink]="['/vacancy/edit', vacancy.id]">Изменить
+              </button>
+            </a>
+            <a class="text-blue-600 font-semibold">
+              <button
+                (click)="deleteVacancy(vacancy.id)"
+                class="p-2 font-semibold bg-red-500 text-white rounded-sm hover:scale-[1.06] transition">
+                Удалить
+              </button>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
