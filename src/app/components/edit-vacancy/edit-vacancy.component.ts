@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {VacancySettingsService} from "../../services/vacancy-settings.service";
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -14,8 +16,8 @@ export class EditVacancyComponent {
   constructor(
     private route: ActivatedRoute,
     private vacancyService: VacancySettingsService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {  }
 
   ngOnInit(): void {
     // Получаем ID вакансии из параметра маршрута
@@ -25,15 +27,35 @@ export class EditVacancyComponent {
   }
 
   loadVacancy(): void {
-    this.vacancyService.getVacancyById(this.vacancyId).subscribe(vacancy => {
+    this.vacancyService.getVacancyById(this.vacancyId)
+      .subscribe(vacancy => {
       this.vacancy = vacancy;
     });
   }
 
+  // Метод для добавления элемента в секцию списка если она есть
+  addItem(sectionIndex: number): void {
+    const newListItem = 'Добавьте свой элемент';
+    if (this.vacancy.sections[sectionIndex].type === 'list') {
+      this.vacancy.sections[sectionIndex].items.push(newListItem);
+    }
+  }
+
+  removeItem(sectionIndex: number, itemIndex: number): void {
+    if (this.vacancy.sections[sectionIndex].type === 'list') {
+      this.vacancy.sections[sectionIndex].items.splice(itemIndex, 1);
+    }
+  }
+
+  onItemChange(section: any, j: number): void {
+    console.log("Стопился")
+  }
+
   updateVacancy(): void {
     this.vacancyService.updateVacancy(this.vacancy).subscribe(() => {
-      // После обновления вакансии, можно перенаправить пользователя обратно на список вакансий
-      this.router.navigate(['/vacancies']);
+      // После обновления вакансии, обратно идет на список вакансий
+      this.router.navigate(['/admin/dashboard']);
     });
   }
+
 }

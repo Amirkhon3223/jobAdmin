@@ -22,10 +22,10 @@ export class VacancyListComponent implements OnInit {
     })
   }
 
-  deleteVacancy(id: number): void{
-    this.vacancySetting.deleteVacancy(id).subscribe(() =>{
+  deleteVacancy(id: number): void {
+    this.vacancySetting.deleteVacancy(id).subscribe(() => {
       this.getVacancies();
-    })
+    });
   }
 
   truncateDescription(description: any, maxLength: number): string {

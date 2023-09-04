@@ -49,7 +49,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { VacancyReviewComponent } from './views/admin/vacancy-review/vacancy-review.component';
 import { EditVacancyComponent } from './components/edit-vacancy/edit-vacancy.component';
 import {RouterModule} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -92,7 +92,8 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     HttpClientModule,
     CanvasJSAngularChartsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: []
 })

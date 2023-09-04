@@ -1,15 +1,61 @@
-<div>
-  <h1>Edit Vacancy</h1>
-  <form (submit)="updateVacancy()">
-    <div>
-      <label for="title">Title:</label>
-      <input type="text" id="title"
-             [(ngModel)]="vacancy.title"
-             name="title" required>
+<div class="max-w-7xl mx-auto py-10 px-5">
+  <form>
+    <div class="form-group">
+      <label for="title">Название:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="vacancy.title" required>
     </div>
-    <!-- Добавьте другие поля для редактирования вакансии -->
-    <div>
-      <button type="submit">Update Vacancy</button>
+
+    <div class="form-group">
+      <label for="type">Тип:</label>
+      <input type="text" id="type" name="type" [(ngModel)]="vacancy.type" required>
     </div>
+
+    <div class="form-group">
+      <label for="region">Регион:</label>
+      <input type="text" id="region" name="region" [(ngModel)]="vacancy.region" required>
+    </div>
+
+    <div class="form-group">
+      <label for="city">Город:</label>
+      <input type="text" id="city" name="city" [(ngModel)]="vacancy.city" required>
+    </div>
+
+    <div class="form-group">
+      <label for="employmentType">Тип занятости:</label>
+      <input type="text" id="employmentType" name="employmentType" [(ngModel)]="vacancy.employmentType" required>
+    </div>
+
+    <!-- Отобразите секции вакансии -->
+    <div *ngFor="let section of vacancy.sections; let i = index" class="section">
+      <div class="form-group">
+        <label for="sectionType{{i}}">Тип секции:</label>
+        <input type="text" id="sectionType{{i}}" name="sectionType{{i}}" [(ngModel)]="section.type" required>
+      </div>
+
+      <div class="form-group">
+        <label for="sectionTitle{{i}}">Заголовок секции:</label>
+        <input type="text" id="sectionTitle{{i}}" name="sectionTitle{{i}}" [(ngModel)]="section.title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="sectionDescribe{{i}}">Описание секции:</label>
+        <textarea id="sectionDescribe{{i}}" name="sectionDescribe{{i}}" [(ngModel)]="section.describe" required></textarea>
+      </div>
+
+      <!-- Если тип секции 'list', отобразите список элементов -->
+      <div *ngIf="section.type === 'list'" class="form-group">
+        <label for="sectionItems{{i}}">Элементы списка:</label>
+        <ul id="sectionItems{{i}}">
+          <li *ngFor="let item of section.items; let j = index">
+            <input type="text" id="item{{i}}_{{j}}" name="item{{i}}_{{j}}" [(ngModel)]="section.items[j]" (ngModelChange)="onItemChange(section, j)">
+            <button (click)="removeItem(i, j)">Удалить элемент</button>
+          </li>
+        </ul>
+        <button (click)="addItem(i)">Добавить элемент</button>
+      </div>
+
+    </div>
+    <button type="submit" (click)="updateVacancy()">Сохранить изменения</button>
   </form>
+
 </div>

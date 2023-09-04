@@ -38,6 +38,6 @@ export class VacancySettingsService {
 
   // Удаление вакансии по ID
   deleteVacancy(id: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiUrl}/vacancies/${id}`)
+    return this.http.delete<any>(`${this.apiUrl}/${id}`)
   }
 }

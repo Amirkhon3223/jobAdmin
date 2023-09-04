@@ -5,13 +5,10 @@
 
   <div class="w-12/12 px-6 md:space-x-6 xl:px-0">
     <!-- Vacancy list -->
-    <div class="rounded-sm space-y-5 ">
-
-      <div class="
-           transition-all rounded-lg shadow bg-white border-[1px] border-gray-100 dark:border-gray-900
-           dark:bg-dark-secondary p-3 space-y-2 w-full hover:scale-[1.005]"
+    <div class="rounded-lg  space-y-6 ">
+      <div class="transition-all rounded-lg shadow-lg border-t-2 bg-white border-[1px] border-gray-100 dark:border-gray-900
+                  dark:bg-dark-secondary p-3 space-y-2 w-full hover:scale-[1.005]"
            *ngFor="let vacancy of vacancies">
-
         <div class="flex w-full items-center">
           <h2 class="text-2xl font-semibold cursor-pointer"
               [routerLink]="['/vacancy', vacancy.id]">{{vacancy?.title}} |
@@ -34,7 +31,6 @@
             </p>
           </div>
         </div>
-
         <div class="flex items-center">
           <p
             class="w-full text-md text-gray-800 dark:text-dark_text hover:text-black dark:hover:text-white cursor-pointer"
@@ -63,9 +59,7 @@
             </a>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>
