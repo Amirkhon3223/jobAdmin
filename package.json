@@ -20,6 +20,8 @@
     "@angular/router": "^16.2.0",
     "@canvasjs/angular-charts": "^1.0.3",
     "@fortawesome/fontawesome-free": "^6.4.2",
+    "@ngneat/hot-toast": "^5.0.2",
+    "@ngneat/overview": "^3.0.0",
     "@popperjs/core": "^2.11.6",
     "@tailwindcss/forms": "^0.5.0",
     "chart.js": "^4.4.0",

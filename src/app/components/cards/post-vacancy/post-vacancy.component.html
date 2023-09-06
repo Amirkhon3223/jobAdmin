@@ -1,0 +1,168 @@
+<div class="relative flex flex-col break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+  <h2 class="text-2xl font-medium p-5 pl-10 py-6">Добавить вакансию</h2>
+
+  <form [formGroup]="vacancyForm" (ngSubmit)="addVacancy()"
+        class="w-full bg-white rounded-lg flex-col items-center justify-center space-y-6 px-10">
+    <div class="w-full">
+      <label for="title" class="block text-sm font-medium text-gray-700">Название:</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        required
+        class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+      >
+    </div>
+    <div class="w-full flex space-x-4 py-2">
+      <div class="w-full">
+        <label for="type" class="block text-sm font-medium text-gray-700">Тип:</label>
+        <input
+          type="text"
+          id="type"
+          formControlName="type"
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+        >
+      </div>
+      <div class="w-full">
+        <label for="region" class="block text-sm font-medium text-gray-700">Регион:</label>
+        <input
+          type="text"
+          id="region"
+          formControlName="region"
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+        >
+      </div>
+      <div class="w-full">
+        <label for="city" class="block text-sm font-medium text-gray-700">Город:</label>
+        <input
+          type="text"
+          id="city"
+          formControlName="city"
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+        >
+      </div>
+      <div class="w-full">
+        <label for="employmentType" class="block text-sm font-medium text-gray-700">Тип занятости:</label>
+        <input
+          type="text"
+          id="employmentType"
+          formControlName="employmentType"
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+        >
+      </div>
+    </div>
+    <div class="w-full">
+      <label for="description" class="block text-sm font-medium text-gray-700">Описание:</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+      ></textarea>
+    </div>
+
+    <hr>
+    <!-- Секции -->
+    <div formArrayName="sections" class="space-y-6">
+      <div
+        *ngFor="let section of sections.controls; let sectionIndex = index"
+        [formGroupName]="sectionIndex"
+        class="border p-4 space-y-5 rounded-md mt-5 bg-white shadow-md hover:shadow-lg"
+      >
+        <div class="w-full space-y-5">
+          <div class="w-full">
+            <label for="sectionTitle" class="block text-sm font-medium text-gray-700">Заголовок секции:</label>
+            <input
+              type="text"
+              id="sectionTitle"
+              formControlName="title"
+              class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+            >
+          </div>
+          <div class="w-full">
+            <label for="sectionDescription" class="block text-sm font-medium text-gray-700">Описание секции:</label>
+            <textarea
+              id="sectionDescription"
+              formControlName="describe"
+              class="p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+            ></textarea>
+          </div>
+        </div>
+        <button type="button" (click)="removeSection(sectionIndex)"
+                class="bg-red-500 p-2 px-3 mx-auto rounded text-white hover:text-red-100 transform hover:scale-105">
+          Удалить секцию
+        </button>
+      </div>
+      <button type="button" (click)="addSection()"
+              class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+        Добавить раздел
+      </button>
+    </div>
+
+    <hr>
+
+    <!-- Списки -->
+    <div formArrayName="lists" class="space-y-6">
+      <div *ngFor="let list of lists.controls; let listIndex = index" [formGroupName]="listIndex"
+           class="border p-4 space-y-4 rounded-md bg-white shadow-md hover:shadow-lg">
+        <div class="w-full space-y-5 justify-between">
+          <div class="w-full">
+            <label for="listTitle" class="block text-sm font-medium text-gray-700">Заголовок списка:</label>
+            <input
+              type="text" id="listTitle" formControlName="title"
+              class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500">
+          </div>
+
+          <!-- Элементы списка -->
+          <div formArrayName="items">
+            <div *ngFor="let item of list.get('items')!.value; let itemIndex = index; trackBy: trackByIndex"
+                 class="flex space-x-1 space-y-10 items-center">
+              <div class="w-full">
+                <label for="listItem" class="block text-sm font-medium text-gray-700">Элемент списка:</label>
+                <input
+                  type="text"
+                  id="listItem"
+                  [formControlName]="itemIndex"
+                  class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+                >
+              </div>
+              <button type="button" (click)="removeItemFromList(listIndex, itemIndex)"
+                      class="text-red-700 rounded-lg relative p-1 -top-2 transform hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="w-full flex justify-between">
+            <button type="button" (click)="addItemToList(listIndex)"
+                    class="text-green-600 font-medium transform hover:scale-105 transition-transform"
+            >
+              Добавить элемент
+            </button>
+            <button type="button" (click)="removeList(listIndex)"
+                    class="text-red-600 hover:text-red-500 font-medium rounded px-3 transition hover:scale-12`5 transform">
+              Удалить список
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="addList()"
+              class="bg-green-500 hover:bg-green-400 text-white py-2 px-4 rounded transform hover:scale-105 transition-transform">
+        Добавить список
+      </button>
+    </div>
+
+    <hr>
+
+    <div class="flex mx-auto w-12/12 items-center justify-center pb-5">
+      <button type="submit" [disabled]="vacancyForm.invalid"
+              class="bg-green-500 hover:bg-green-700 text-white justify-center items-center py-3 px-4 rounded">
+        Добавить вакансию
+      </button>
+    </div>
+
+  </form>
+</div>

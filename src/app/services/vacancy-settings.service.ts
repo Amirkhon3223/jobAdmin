@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {Vacancy} from "../models/vacancy";
@@ -10,7 +10,12 @@ export class VacancySettingsService {
 
   private apiUrl = 'http://localhost:3000/vacancies'
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
+
+
+  addVacancy(vacancy: Vacancy): Observable<Vacancy> {
+    return this.http.post<Vacancy>(`${this.apiUrl}/`, vacancy);
+  }
 
   // Получение списка вакансий
   getVacancies(): Observable<Vacancy[]> {
@@ -37,7 +42,7 @@ export class VacancySettingsService {
   }
 
   // Удаление вакансии по ID
-  deleteVacancy(id: number): Observable<void>{
+  deleteVacancy(id: number): Observable<void> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`)
   }
 }

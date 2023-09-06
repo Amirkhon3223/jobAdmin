@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VacancySettingsService} from "../../services/vacancy-settings.service";
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 
 @Component({
@@ -29,8 +29,8 @@ export class EditVacancyComponent {
   loadVacancy(): void {
     this.vacancyService.getVacancyById(this.vacancyId)
       .subscribe(vacancy => {
-      this.vacancy = vacancy;
-    });
+        this.vacancy = vacancy;
+      });
   }
 
   // Метод для добавления элемента в секцию списка если она есть
@@ -47,8 +47,8 @@ export class EditVacancyComponent {
     }
   }
 
-  onItemChange(section: any, j: number): void {
-    console.log("Стопился")
+  trackByIndex(index: number, item: any): number {
+    return index;
   }
 
   updateVacancy(): void {

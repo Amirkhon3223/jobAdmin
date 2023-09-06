@@ -1,61 +1,79 @@
 <div class="max-w-7xl mx-auto py-10 px-5">
-  <form>
-    <div class="form-group">
-      <label for="title">Название:</label>
-      <input type="text" id="title" name="title" [(ngModel)]="vacancy.title" required>
+  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Название:</label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text" id="title" name="title" [(ngModel)]="vacancy.title" required>
     </div>
 
-    <div class="form-group">
-      <label for="type">Тип:</label>
-      <input type="text" id="type" name="type" [(ngModel)]="vacancy.type" required>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="region">Регион:</label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text" id="region" name="region" [(ngModel)]="vacancy.region" required>
     </div>
 
-    <div class="form-group">
-      <label for="region">Регион:</label>
-      <input type="text" id="region" name="region" [(ngModel)]="vacancy.region" required>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="city">Город:</label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text" id="city" name="city" [(ngModel)]="vacancy.city" required>
     </div>
 
-    <div class="form-group">
-      <label for="city">Город:</label>
-      <input type="text" id="city" name="city" [(ngModel)]="vacancy.city" required>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="employmentType">Тип занятости:</label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text" id="employmentType" name="employmentType" [(ngModel)]="vacancy.employmentType" required>
     </div>
 
-    <div class="form-group">
-      <label for="employmentType">Тип занятости:</label>
-      <input type="text" id="employmentType" name="employmentType" [(ngModel)]="vacancy.employmentType" required>
-    </div>
+    <!-- Отображение секций вакансии -->
+    <div *ngFor="let section of vacancy.sections; let i = index" class="section p-4 border rounded mb-4">
 
-    <!-- Отобразите секции вакансии -->
-    <div *ngFor="let section of vacancy.sections; let i = index" class="section">
-      <div class="form-group">
-        <label for="sectionType{{i}}">Тип секции:</label>
-        <input type="text" id="sectionType{{i}}" name="sectionType{{i}}" [(ngModel)]="section.type" required>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="sectionTitle{{i}}">Заголовок секции:</label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text" id="sectionTitle{{i}}" name="sectionTitle{{i}}" [(ngModel)]="section.title" required>
       </div>
 
-      <div class="form-group">
-        <label for="sectionTitle{{i}}">Заголовок секции:</label>
-        <input type="text" id="sectionTitle{{i}}" name="sectionTitle{{i}}" [(ngModel)]="section.title" required>
-      </div>
-
-      <div class="form-group">
-        <label for="sectionDescribe{{i}}">Описание секции:</label>
-        <textarea id="sectionDescribe{{i}}" name="sectionDescribe{{i}}" [(ngModel)]="section.describe" required></textarea>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="sectionDescribe{{i}}">Описание секции:</label>
+        <textarea
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="sectionDescribe{{i}}" name="sectionDescribe{{i}}" [(ngModel)]="section.describe" required></textarea>
       </div>
 
       <!-- Если тип секции 'list', отобразите список элементов -->
       <div *ngIf="section.type === 'list'" class="form-group">
-        <label for="sectionItems{{i}}">Элементы списка:</label>
+
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="sectionItems{{i}}">Элементы списка:</label>
+
         <ul id="sectionItems{{i}}">
-          <li *ngFor="let item of section.items; let j = index">
-            <input type="text" id="item{{i}}_{{j}}" name="item{{i}}_{{j}}" [(ngModel)]="section.items[j]" (ngModelChange)="onItemChange(section, j)">
-            <button (click)="removeItem(i, j)">Удалить элемент</button>
+          <li *ngFor="let item of section.items; let j = index; trackBy: trackByIndex"
+              class="w-3/4 mb-2 flex items-center">
+            <input
+              class=" shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline flex-grow"
+              type="text" id="item{{i}}_{{j}}" name="item{{i}}_{{j}}" [(ngModel)]="section.items[j]" required>
+            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-3 ml-2 rounded" (click)="removeItem(i, j)">
+              Удалить элемент
+            </button>
           </li>
         </ul>
-        <button (click)="addItem(i)">Добавить элемент</button>
+
+        <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-3 rounded mt-2" (click)="addItem(i)">
+          Добавить элемент
+        </button>
+
       </div>
-
     </div>
-    <button type="submit" (click)="updateVacancy()">Сохранить изменения</button>
-  </form>
 
+    <button class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded" type="submit"
+            (click)="updateVacancy()">
+      Сохранить изменения
+    </button>
+
+  </form>
 </div>
