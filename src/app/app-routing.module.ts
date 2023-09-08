@@ -12,14 +12,10 @@ import {TablesComponent} from './views/admin/tables/tables.component';
 
 // auth views
 import {LoginComponent} from './views/auth/login/login.component';
-import {RegisterComponent} from './views/auth/register/register.component';
-import {EditVacancyComponent} from "./components/edit-vacancy/edit-vacancy.component";
-import {VacancyListComponent} from "./components/cards/card-vacancy-list/vacancy-list.component";
 import {ContentHeadingComponent} from "./components/content-heading/content-heading.component";
 import {ContentListComponent} from "./components/content-list/content-list.component";
 import {VacancyReviewComponent} from "./views/admin/vacancy-review/vacancy-review.component";
 import {NgForOf} from "@angular/common";
-import {PostVacancyComponent} from "./components/cards/post-vacancy/post-vacancy.component";
 import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
@@ -43,7 +39,6 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
     ],
   },

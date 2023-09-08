@@ -23,4 +23,8 @@ export class UserDropdownComponent implements AfterViewInit {
     event.preventDefault();
     this.dropdownPopoverShow = !this.dropdownPopoverShow;
   }
+
+  logout(): void{
+
+  }
 }

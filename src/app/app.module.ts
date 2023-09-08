@@ -18,8 +18,6 @@ import {TablesComponent} from './views/admin/tables/tables.component';
 // auth views
 import {LoginComponent} from './views/auth/login/login.component';
 
-import {RegisterComponent} from './views/auth/register/register.component';
-
 // components for views and layouts
 import {AdminNavbarComponent} from './components/navbars/admin-navbar/admin-navbar.component';
 import {CardLineChartComponent} from './components/cards/card-line-chart/card-line-chart.component';
@@ -49,6 +47,7 @@ import {PostVacancyComponent} from './components/cards/post-vacancy/post-vacancy
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from "@angular/material/dialog";
 import {PaginationComponent} from "./components/pagination/pagination.component";
+import { ProfileComponent } from './views/admin/profile/profile.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -75,12 +74,12 @@ import {PaginationComponent} from "./components/pagination/pagination.component"
     SettingsComponent,
     TablesComponent,
     LoginComponent,
-    RegisterComponent,
     VacancyListComponent,
     VacancyReviewComponent,
     EditVacancyComponent,
     PostVacancyComponent,
     PaginationComponent,
+    ProfileComponent,
   ],
   imports: [
     FormsModule, // Добавьте FormsModule

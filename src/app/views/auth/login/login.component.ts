@@ -19,13 +19,15 @@ export class LoginComponent implements OnInit {
   onLoginClick(): void {
     const username = (document.getElementById('username') as HTMLInputElement).value;
     const password = (document.getElementById('password') as HTMLInputElement).value;
-    this.authService.login(username, password);
+    this.authService.login(username, password).subscribe((response) => {
+      if (response.message === 'Аутентификация успешна') {
+        // Сохраните данные пользователя в локальное хранилище
+        localStorage.setItem('user', JSON.stringify(response.user));
 
-    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
-      if (isAuthenticated) {
-        // Пользователь аутентифицирован, перенаправьте его на другую страницу
+        // Перенаправьте пользователя на защищенные страницы
         this.router.navigate(['/admin/dashboard']);
       }
     });
   }
+
 }
