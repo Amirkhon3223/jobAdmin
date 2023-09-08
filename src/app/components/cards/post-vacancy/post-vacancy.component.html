@@ -10,7 +10,7 @@
         id="title"
         formControlName="title"
         required
-        class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+        class="w-full text-xl font-bold focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
       >
     </div>
     <div class="w-full flex space-x-4 py-2">
@@ -51,14 +51,15 @@
         >
       </div>
     </div>
-    <div class="w-full">
-      <label for="description" class="block text-sm font-medium text-gray-700">Описание:</label>
-      <textarea
-        id="description"
-        formControlName="description"
-        class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
-      ></textarea>
-    </div>
+<!--    <div class="w-full">-->
+<!--      <label for="description" class="block text-sm font-medium text-gray-700">Описание:</label>-->
+<!--      <textarea-->
+<!--        style="height: 120px"-->
+<!--        id="description"-->
+<!--        formControlName="description"-->
+<!--        class="w-full border border-gray-200 rounded focus:outline-none focus:border-0 focus:border-b focus:ring-0"-->
+<!--      ></textarea>-->
+<!--    </div>-->
 
     <hr>
     <!-- Секции -->
@@ -75,7 +76,7 @@
               type="text"
               id="sectionTitle"
               formControlName="title"
-              class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+              class="w-full text-xl font-bold focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
             >
           </div>
           <div class="w-full">
@@ -83,7 +84,7 @@
             <textarea
               id="sectionDescription"
               formControlName="describe"
-              class="p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+              class="w-full border border-gray-200 rounded focus:outline-none focus:border-0 focus:border-b focus:ring-0"
             ></textarea>
           </div>
         </div>
@@ -109,7 +110,7 @@
             <label for="listTitle" class="block text-sm font-medium text-gray-700">Заголовок списка:</label>
             <input
               type="text" id="listTitle" formControlName="title"
-              class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500">
+              class="w-full text-xl font-bold focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b">
           </div>
 
           <!-- Элементы списка -->
@@ -122,7 +123,7 @@
                   type="text"
                   id="listItem"
                   [formControlName]="itemIndex"
-                  class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+                  class="w-full text-xl font-bold focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
                 >
               </div>
               <button type="button" (click)="removeItemFromList(listIndex, itemIndex)"

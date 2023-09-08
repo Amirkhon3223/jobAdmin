@@ -10,8 +10,7 @@
   <div class="w-12/12 px-6 md:space-x-6 xl:px-0">
     <!-- Vacancy list -->
     <div class="rounded-lg  space-y-6 ">
-      <div class="transition-all rounded-lg shadow-lg border-t-2 bg-white border-[1px] border-gray-100 dark:border-gray-900
-                  dark:bg-dark-secondary p-3 space-y-2 w-full hover:scale-[1.005]"
+      <div class="transition-all rounded-lg shadow-lg border-t-2 bg-white border-[1px] border-gray-100 p-3 space-y-2 w-full hover:scale-[1.005]"
            *ngFor="let vacancy of vacancies">
         <div class="flex w-full items-center">
           <h2 class="text-2xl font-semibold cursor-pointer"
@@ -42,29 +41,30 @@
             {{ truncateDescription(vacancy.sections[0].describe, 100)}}
           </p>
           <div class="w-full flex justify-end items-center space-x-3">
-            <a class="text-blue-600 font-semibold">
+            <a class="text-blue-600">
               <button
-                class="p-2 font-semibold bg-green-500 dark:bg-secondary text-black rounded-sm hover:scale-[1.06] transition"
+                class="p-2 font-normal bg-green-500 dark:bg-secondary text-black rounded-sm hover:scale-[1.06] transition"
                 [routerLink]="['/vacancy', vacancy.id]">Подробнее
               </button>
             </a>
-            <a class="text-blue-600 font-semibold">
+            <a class="text-blue-600">
               <button
-                class="p-2 font-semibold bg-yellow-300 text-black rounded-sm hover:scale-[1.06] transition"
-                [routerLink]="['/vacancy/edit', vacancy.id]">Изменить
+                class="p-2 font-normal bg-yellow-300 text-black rounded-sm hover:scale-[1.06] transition"
+                (click)="openEditModal(vacancy)">Изменить
               </button>
             </a>
-            <a class="text-blue-600 font-semibold">
+            <a class="text-blue-600">
               <button
                 (click)="deleteVacancy(vacancy.id)"
-                class="p-2 font-semibold bg-red-500 text-white rounded-sm hover:scale-[1.06] transition">
+                class="p-2 font-normal bg-red-500 text-white rounded-sm hover:scale-[1.06] transition">
                 Удалить
               </button>
             </a>
+            <app-edit-vacancy *ngIf="!showEditModal" [vacancy]="vacancy"></app-edit-vacancy>
           </div>
         </div>
       </div>
+      <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)"></app-pagination>
     </div>
   </div>
 </div>
-

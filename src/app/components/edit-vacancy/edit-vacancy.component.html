@@ -1,79 +1,124 @@
-<div class="max-w-7xl mx-auto py-10 px-5">
-  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Название:</label>
-      <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text" id="title" name="title" [(ngModel)]="vacancy.title" required>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="region">Регион:</label>
-      <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text" id="region" name="region" [(ngModel)]="vacancy.region" required>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="city">Город:</label>
-      <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text" id="city" name="city" [(ngModel)]="vacancy.city" required>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="employmentType">Тип занятости:</label>
-      <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text" id="employmentType" name="employmentType" [(ngModel)]="vacancy.employmentType" required>
-    </div>
-
-    <!-- Отображение секций вакансии -->
-    <div *ngFor="let section of vacancy.sections; let i = index" class="section p-4 border rounded mb-4">
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="sectionTitle{{i}}">Заголовок секции:</label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          type="text" id="sectionTitle{{i}}" name="sectionTitle{{i}}" [(ngModel)]="section.title" required>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="sectionDescribe{{i}}">Описание секции:</label>
-        <textarea
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="sectionDescribe{{i}}" name="sectionDescribe{{i}}" [(ngModel)]="section.describe" required></textarea>
-      </div>
-
-      <!-- Если тип секции 'list', отобразите список элементов -->
-      <div *ngIf="section.type === 'list'" class="form-group">
-
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="sectionItems{{i}}">Элементы списка:</label>
-
-        <ul id="sectionItems{{i}}">
-          <li *ngFor="let item of section.items; let j = index; trackBy: trackByIndex"
-              class="w-3/4 mb-2 flex items-center">
-            <input
-              class=" shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline flex-grow"
-              type="text" id="item{{i}}_{{j}}" name="item{{i}}_{{j}}" [(ngModel)]="section.items[j]" required>
-            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-3 ml-2 rounded" (click)="removeItem(i, j)">
-              Удалить элемент
-            </button>
-          </li>
-        </ul>
-
-        <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-3 rounded mt-2" (click)="addItem(i)">
-          Добавить элемент
-        </button>
-
-      </div>
-    </div>
-
-    <button class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded" type="submit"
-            (click)="updateVacancy()">
-      Сохранить изменения
+<div class="modal fixed inset-0 flex items-center justify-center z-50 bg-opacity-50 bg-gray-900 h-full"
+     *ngIf="showModal"
+     [class.modal-close-animation]="closeAnimationActive">
+  <div class="bg-white dark:bg-dark-secondary rounded-lg shadow-lg w-full max-w-7xl modal-content border-8 border-white p-4">
+    <button class="text-red-600 rounded relative float-right top-4 right-10"
+            (click)="closeModal()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+           stroke-linecap="round" stroke-linejoin="round" class="hover:scale-150 transition">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
     </button>
 
-  </form>
+    <form class="w-full p-10">
+      <!-- Название -->
+      <div class="mb-4 items-center">
+        <label class="block text-gray-700 text-sm font-bold mr-2" for="title">Название:</label>
+        <div class="flex-grow">
+          <input
+            class="w-full font-bold text-lg focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
+            type="text" id="title" name="title" [(ngModel)]="vacancy.title" required>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <!-- Регион -->
+        <div class="mb-4 flex items-center">
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mr-2" for="region">Регион:</label>
+          </div>
+          <div class="flex-grow">
+            <input
+              class="w-full focus:outline-none focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
+              type="text" id="region" name="region" [(ngModel)]="vacancy.region">
+          </div>
+        </div>
+
+        <!-- Город -->
+        <div class="mb-4 flex items-center">
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mr-2" for="city">Город:</label>
+          </div>
+          <div class="flex-grow">
+            <input
+              class="w-full focus:outline-none focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
+              type="text" id="city" name="city" [(ngModel)]="vacancy.city">
+          </div>
+        </div>
+
+        <!-- Тип занятости -->
+        <div class="mb-4 flex items-center">
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mr-2" for="employmentType">Тип занятости:</label>
+          </div>
+          <div class="flex-grow">
+            <input
+              class="w-full focus:outline-none focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
+              type="text" id="employmentType" name="employmentType" [(ngModel)]="vacancy.employmentType">
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-2">
+      <!-- Отображение секций вакансии -->
+      <div *ngFor="let section of vacancy.sections; let i = index" class="mx-auto mb-8 mt-10 space-y-2">
+        <div class="flex items-center mt-8">
+          <div class="w-3/12 h-full items-center">
+            <input
+              class="focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
+              type="text" id="sectionTitle{{i}}" name="sectionTitle{{i}}" [(ngModel)]="section.title"
+            >
+          </div>
+          <div class="flex-grow">
+        <textarea
+          class="w-full border border-gray-200 rounded"
+          style="min-height: 120px"
+          id="sectionDescribe{{i}}" name="sectionDescribe{{i}}" [(ngModel)]="section.describe"></textarea>
+          </div>
+        </div>
+        <hr class="border border-gray-300">
+        <!-- Если тип секции 'list', отобразите список элементов -->
+        <div *ngIf="section.type === 'list'" class="flex items-center mt-8">
+          <div class="w-4/12 h-full items-center">
+            <label class="block text-gray-700 text-sm font-bold w-full" for="sectionItems{{i}}">Элементы списка:</label>
+          </div>
+          <ul id="sectionItems{{i}}" class="w-full space-y-5 flex-grow">
+            <li *ngFor="let item of section.items; let j = index; trackBy: trackByIndex"
+                class="flex items-center w-full">
+              <input
+                class="w-full focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"
+                type="text" id="item{{i}}_{{j}}" name="item{{i}}_{{j}}" [(ngModel)]="section.items[j]">
+              <button class="text-red-600 ml-2 rounded" (click)="removeItem(i, j)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </li>
+            <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded mt-2" (click)="addItem(i)">
+              Добавить элемент
+            </button>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
+                type="submit"
+                (click)="updateVacancy()">
+          Сохранить изменения
+        </button>
+
+        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-3 rounded mt-2"
+                (click)="closeModal()">
+          Закрыть
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

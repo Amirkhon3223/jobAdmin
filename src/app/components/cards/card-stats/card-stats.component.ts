@@ -22,10 +22,10 @@ export class CardStatsComponent implements OnInit {
   }
 
   set statTitle(statTitle: string) {
-    this._statTitle = statTitle === undefined ? '350,897' : statTitle;
+    this._statTitle = statTitle === undefined ? '0' : statTitle;
   }
 
-  private _statTitle = '350,897';
+  private _statTitle = '0';
 
   // The value must match one of up or down
   @Input()

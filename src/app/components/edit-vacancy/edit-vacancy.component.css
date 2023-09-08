@@ -1,0 +1,20 @@
+.modal-content {
+  max-height: 90vh; /* Задайте максимальную высоту, например, 80% от высоты видимой области */
+  overflow-y: auto; /* Включите вертикальную прокрутку при необходимости */
+}
+
+.modal-close-animation {
+  animation: closeModal 0.3s ease-out;
+}
+
+/* Создайте ключевые кадры анимации */
+@keyframes closeModal {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px); /* Можете настроить, каким образом модальное окно исчезает */
+  }
+}

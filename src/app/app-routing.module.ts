@@ -30,11 +30,12 @@ const routes: Routes = [
       {path: 'dashboard', component: DashboardComponent},
       {path: 'settings', component: SettingsComponent},
       {path: 'tables', component: TablesComponent},
-      {path: '', redirectTo: 'admin/dashboard', pathMatch: 'full'},
+      {path: '', redirectTo: '/admin/dashboard', pathMatch: 'full'},
     ],
   },
+
   {path: 'vacancy/:id', component: VacancyReviewComponent},
-  {path: 'vacancy/edit/:id', component: EditVacancyComponent}, // Маршрут для редактирования
+
 
   // auth views
   {
@@ -46,7 +47,9 @@ const routes: Routes = [
       {path: '', redirectTo: 'login', pathMatch: 'full'},
     ],
   },
-  {path: '', component: AdminComponent},
+  {
+    path: '', component: AdminComponent
+  },
   {path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 

@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VacancySettingsService} from "../../services/vacancy-settings.service";
 import {FormsModule} from '@angular/forms';
+import {Vacancy} from "../../models/vacancy";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {HotToastService} from "@ngneat/hot-toast";
 
 
 @Component({
@@ -10,18 +13,34 @@ import {FormsModule} from '@angular/forms';
   styleUrls: ['./edit-vacancy.component.css']
 })
 export class EditVacancyComponent {
-  vacancy: any = {}; // Объект для хранения данных о вакансии
+  @Input() showModal = true;
+  @Input() vacancy: any = {};
+
+  closeAnimationActive = false;
+
+  closeModal() {
+    this.closeAnimationActive = true;
+    setTimeout(() => {
+      this.showModal = false;
+      this.closeAnimationActive = false;
+    }, 300); // Подождите 300 миллисекунд (время анимации) перед закрытием модального окна
+  }
+
   vacancyId: number = 0;
 
   constructor(
-    private route: ActivatedRoute,
+    public dialogRef: MatDialogRef<EditVacancyComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private vacancyService: VacancySettingsService,
     private router: Router,
-  ) {  }
+    private toast: HotToastService
+  ) {
+    this.vacancy = data.vacancy; // Получаем данные о вакансии из MAT_DIALOG_DATA
+  }
 
   ngOnInit(): void {
     // Получаем ID вакансии из параметра маршрута
-    this.vacancyId = +this.route.snapshot.paramMap.get('id')!;
+    this.vacancyId = +this.data.vacancy.id;
     // Загружаем данные о вакансии
     this.loadVacancy();
   }
@@ -56,6 +75,8 @@ export class EditVacancyComponent {
       // После обновления вакансии, обратно идет на список вакансий
       this.router.navigate(['/admin/dashboard']);
     });
+    this.toast.success('Вакансия обновлено')
+    this.closeModal()
   }
 
 }
