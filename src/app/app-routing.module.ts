@@ -12,8 +12,6 @@ import {TablesComponent} from './views/admin/tables/tables.component';
 
 // auth views
 import {LoginComponent} from './views/auth/login/login.component';
-import {ContentHeadingComponent} from "./components/content-heading/content-heading.component";
-import {ContentListComponent} from "./components/content-list/content-list.component";
 import {VacancyReviewComponent} from "./views/admin/vacancy-review/vacancy-review.component";
 import {NgForOf} from "@angular/common";
 import {AuthGuard} from "./auth.guard";
@@ -49,11 +47,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), NgForOf],
-  exports: [RouterModule, ContentHeadingComponent, ContentListComponent],
-  declarations: [
-    ContentHeadingComponent,
-    ContentListComponent
-  ]
+  exports: [RouterModule],
+  declarations: []
 })
 export class AppRoutingModule {
 

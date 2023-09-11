@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VacancySettingsService} from "../../../services/vacancy-settings.service";
 import {Vacancy} from "../../../models/vacancy";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 
 @Component({
@@ -20,8 +21,14 @@ export class VacancyReviewComponent {
     //Вызываем компоненты и сервисы
     private route: ActivatedRoute,
     private vacancyService: VacancySettingsService,
+    private sanitizer: DomSanitizer
     ) {
   }
+
+  sanitizeDescription(description: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(description);
+  }
+
 
   // Происходит инициализация, берется список(объекты из сервиса, где хранятся данные)...
   ngOnInit(): void {

@@ -2,7 +2,7 @@
   <main class="py-5 px-4 sm:p-6 md:py-10 md:px-8">
     <div class="max-w-7xl mx-auto">
       <div class="pb-10">
-        <h1 class="text-2xl font-bold pb-5">Просмотри вакансии в режиме администрации</h1>
+        <h1 class="text-2xl font-bold pb-5">Просмотр вакансии в режиме администрации</h1>
         <button
           routerLink="/admin/dashboard"
           class="py-3 px-4 font-semibold bg-[#ECECEC] dark:bg-secondary text-black rounded-sm">
@@ -38,13 +38,8 @@
 
         <hr class="border-gray-300 dark:border-gray-900">
 
-        <div class="">
-          <ng-container *ngFor="let section of vacancy.sections; let isFirst = first">
-            <ng-container [ngSwitch]="section.type">
-              <app-content-heading *ngSwitchCase="'heading'" [describe]="section.describe" [title]="section.title"></app-content-heading>
-              <app-content-list *ngSwitchCase="'list'" [title]="section.title" [items]="section.items"></app-content-list>
-            </ng-container>
-          </ng-container>
+        <div class="" [innerHTML]="vacancy.description">
+
         </div>
 
         <h2 class="text-lg font-medium mt-10">Заинтересовались? Отправьте запрос мы обязательно с вами свяжемся!</h2>

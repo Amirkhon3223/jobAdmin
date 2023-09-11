@@ -15,54 +15,79 @@
     </div>
     <div class="w-full flex space-x-4 py-2">
       <div class="w-full">
-        <label for="type" class="block text-sm font-medium text-gray-700">Тип:</label>
-        <input
-          type="text"
+        <label for="type" class="block text-sm font-medium text-gray-700">Категория:</label>
+        <select
           id="type"
           formControlName="type"
           class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
         >
+          <option selected value="">Любое</option>
+          <option value="IT">ИТ</option>
+          <option value="Marketing">Маркетинг и реклама</option>
+          <option value="security">Безопасность</option>
+        </select>
       </div>
       <div class="w-full">
         <label for="city" class="block text-sm font-medium text-gray-700">Город:</label>
-        <input
-          type="text"
+        <select
           id="city"
           formControlName="city"
           class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
         >
+          <option selected value="">Все города</option>
+          <option value="Khujand">Худжанд</option>
+          <option value="Dushanbe">Душанбе</option>
+          <option value="Panjakent">Панджекент</option>
+          <option value="Ayini">Айни</option>
+          <option value="Khorog">Хорог</option>
+        </select>
       </div>
       <div class="w-full">
         <label for="employmentType" class="block text-sm font-medium text-gray-700">Тип занятости:</label>
-        <input
-          type="text"
+        <select
           id="employmentType"
           formControlName="employmentType"
           class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
         >
+          <option selected value="">Любое</option>
+          <option value="Full time">Полный день</option>
+          <option value="Part time">Не полный день</option>
+          <option value="Hybrid">Гибкий</option>
+        </select>
       </div>
+
     </div>
 
     <div class="w-full text-black" x-data="app()">
       <div class="border border-gray-200 overflow-hidden rounded-md p-1">
         <div class="w-full flex border-b border-gray-200 text-xl text-gray-600">
-          <button class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50" (click)="formatBold()">
+          <button
+            class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50"
+            (click)="formatBold()">
             <i class="mdi mdi-format-bold"></i>
           </button>
-          <button class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50" (click)="formatItalic()">
+          <button
+            class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50"
+            (click)="formatItalic()">
             <i class="mdi mdi-format-italic"></i>
           </button>
-          <button class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 mr-1 hover:text-indigo-500 active:bg-gray-50" (click)="formatUnderline()">
+          <button
+            class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 mr-1 hover:text-indigo-500 active:bg-gray-50"
+            (click)="formatUnderline()">
             <i class="mdi mdi-format-underline"></i>
           </button>
-          <button class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50" (click)="formatHeading()">
+          <button
+            class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50"
+            (click)="formatHeading()">
             <i class="mdi mdi-format-header-1"></i>
           </button>
-          <button class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50" (click)="formatBulletList()">
+          <button
+            class="outline-none focus:outline-none border-r border-gray-200 w-10 h-10 hover:text-indigo-500 active:bg-gray-50"
+            (click)="formatBulletList()">
             <i class="mdi mdi-format-list-bulleted"></i>
           </button>
         </div>
-        <iframe  #wysiwyg class="w-full h-96 overflow-y-auto"></iframe>
+        <iframe #wysiwyg class="w-full h-96 overflow-y-auto"></iframe>
       </div>
     </div>
 

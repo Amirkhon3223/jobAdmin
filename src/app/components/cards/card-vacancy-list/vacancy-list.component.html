@@ -3,9 +3,26 @@
   <h1 class="w-full text-start text-2xl text-gray-900 dark:text-dark-gray_white font-bold pb-5">
     Список вакансий
   </h1>
-  <button [routerLink]="['/admin/settings']" class="bg-orange-500 p-2 mb-2 rounded text-xl font-medium text-white px-4">
-    Добавить вакансию
-  </button>
+
+  <div class="flex justify-between items-center mb-5">
+    <div class="items-center">
+      <button [routerLink]="['/admin/settings']"
+              class="bg-orange-500 p-2 mb-2 rounded text-xl font-medium text-white px-4">
+        Добавить вакансию
+      </button>
+    </div>
+
+<!--    <div class="flex space-x-2 items-center">-->
+<!--      <label for="addCity" class="block text-sm font-medium text-gray-700">Добавить город</label>-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        id="addCity"-->
+<!--        formControlName="addCity"-->
+<!--        class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"-->
+<!--      >-->
+<!--      <button class="py-0 px-2 h-10 bg-red-600 text-white font-medium rounded">ADD</button>-->
+<!--    </div>-->
+  </div>
 
   <div class="w-12/12 px-6 md:space-x-6 xl:px-0">
     <!-- Vacancy list -->
@@ -35,10 +52,9 @@
           </div>
         </div>
         <div class="flex items-center">
-          <p
-            class="w-full text-md text-gray-800 dark:text-dark_text hover:text-black dark:hover:text-white cursor-pointer"
-            [routerLink]="['/vacancy', vacancy.id]">
-            {{ truncateDescription(vacancy.sections[0].describe, 100)}}
+          <p class="w-full text-md text-gray-800 dark:text-dark_text hover:text-black dark:hover:text-white cursor-pointer"
+             [routerLink]="['/vacancy', vacancy.id]"
+             [innerHTML]="truncateDescription(vacancy.description, 100)">
           </p>
           <div class="w-full flex justify-end items-center space-x-3">
             <a class="text-blue-600">

@@ -3,6 +3,7 @@ import {VacancySettingsService} from "../../../services/vacancy-settings.service
 import {Vacancy} from "../../../models/vacancy";
 import {MatDialog} from '@angular/material/dialog';
 import {EditVacancyComponent} from '../../edit-vacancy/edit-vacancy.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-card-vacancy-list',
@@ -21,7 +22,8 @@ export class VacancyListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private vacancySetting: VacancySettingsService,
-    // private toast: HotToastService
+    // private toast: HotToastService,
+    private sanitizer: DomSanitizer
   ) {  }
 
   onPageChanged(pageNumber: number): void {
@@ -29,6 +31,9 @@ export class VacancyListComponent implements OnInit {
     this.getVacancies(); // Обновите список вакансий, например, снова вызвав getVacancies()
   }
 
+  sanitizeDescription(description: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(description);
+  }
 
   ngOnInit(): void {
     this.getVacancies();
@@ -83,7 +88,7 @@ export class VacancyListComponent implements OnInit {
 
   openEditModal(vacancy: Vacancy): void {
     const dialogRef = this.dialog.open(EditVacancyComponent, {
-      data: {vacancy: vacancy} // Убедитесь, что vacancy - это объект вакансии
+      data: {vacancy: vacancy}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -9,6 +9,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: './post-vacancy.component.html',
   styleUrls: ['./post-vacancy.component.css']
 })
+
 export class PostVacancyComponent implements AfterViewInit{
   @ViewChild('wysiwyg', { static: true }) wysiwyg!: ElementRef;
 
