@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { createPopper } from '@popperjs/core';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-user-dropdown',
@@ -9,6 +10,8 @@ export class UserDropdownComponent implements AfterViewInit {
   dropdownPopoverShow = false;
   @ViewChild('btnDropdownRef', { static: false }) btnDropdownRef: ElementRef | any;
   @ViewChild('popoverDropdownRef', { static: false }) popoverDropdownRef: ElementRef | any;
+
+  constructor(private authService: AuthService) {}
 
   ngAfterViewInit() {
     createPopper(
@@ -24,7 +27,7 @@ export class UserDropdownComponent implements AfterViewInit {
     this.dropdownPopoverShow = !this.dropdownPopoverShow;
   }
 
-  logout(): void{
-
+  logout(): void {
+    this.authService.logout(); // Вызываем метод logout из AuthService
   }
 }

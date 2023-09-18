@@ -1,46 +1,57 @@
-<div
-  class="bg-white relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
->
+<div class="bg-white relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded">
   <div class="rounded-t mb-0 px-4 py-3 border-0">
     <div class="flex flex-wrap items-center">
       <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-        <h3
-          class="font-semibold text-lg">
-          Card Tables
-        </h3>
+        <h3 class="font-semibold text-lg">Заявки на вакансии</h3>
       </div>
     </div>
   </div>
   <div class="block w-full overflow-x-auto">
     <!-- Projects table -->
-    <table class="items-center w-full bg-transparent border-collapse">
-      <thead>
-      <tr>
-        <!-- Заголовки столбцов -->
-        <th>ФИО</th>
-        <th>Номер Телефона</th>
-        <th>CV - Resume</th>
-        <th>Cover text</th>
-        <th>Действия</th>
+    <table class="min-w-full border-collapse block md:table">
+      <thead class="block md:table-header-group">
+      <tr class="border border-grey-500 md:border-none block md:table-row">
+        <th class="p-2 text-black font-bold text-center block md:table-cell">N</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">ФИО</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">Номер Телефона</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">Cover text</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">CV - Resume</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">Вакансия</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">Город</th>
+        <th class="p-2 text-black font-bold text-center block md:table-cell">Действия</th>
       </tr>
       </thead>
-
-      <tbody>
-      <!-- Вывод данных с помощью *ngFor -->
-      <tr *ngFor="let application of applications">
-        <td>{{ application.fullName }}</td>
-        <td>{{ application.phoneNumber }}</td>
-        <td>
+      <tbody class="block md:table-row-group" *ngFor="let application of applications" >
+      <tr
+        class="bg-white border border-grey-500 md:border-none block md:table-row hover:bg-gray-100 cursor-pointer transition">
+        <td class="p-3 text-center block md:table-cell">{{ application.id }}</td>
+        <td class="p-3 text-center block md:table-cell">{{ application.fullName }}</td>
+        <td class="p-3 text-center block md:table-cell">{{ application.phoneNumber }}</td>
+        <td *ngIf="!application.showDetails"
+            class="p-3 w-1/6 md:border md:border-grey-500 text-center block md:table-cell"
+            style="max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+          {{ application.coverText }}
+        </td>
+        <td class="p-3 text-center block md:table-cell">
           <!-- Иконка файла и ссылка для скачивания -->
-          <a [href]="application.resumeUrl" target="_blank">
-            <i class="fa fa-file-pdf-o"></i>
-            Скачать резюме
+          <a [href]="application.resumeFile" target="_blank" class="text-blue-500 hover:text-blue-800">
+            <i class="fa fa-file-pdf-o"></i> Скачать резюме
           </a>
         </td>
-        <td>{{ application.coverText }}</td>
-        <td>
+        <td class="p-3 text-center block md:table-cell">{{ application.vacancyTitle }}</td>
+        <td class="p-3 text-center block md:table-cell">{{ application.vacancyCity }}</td>
+        <td class="p-3 text-center block md:table-cell space-x-4">
+          <!-- Кнопка для подробного просмотра вакансии -->
+          <button (click)="openModal(application)"
+                  class="bg-green-500 hover:bg-gren-700 text-white font-bold py-1 px-2 hover:scale-105 transition rounded">
+            View
+          </button>
           <!-- Кнопка для удаления записи -->
-          <button (click)="deleteApplication(application.id)" class="text-red-600">X</button>
+          <button (click)="deleteApplication(application.id)"
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 hover:scale-105 transition rounded">
+            <i class="fa fa-trash"></i>
+            X
+          </button>
         </td>
       </tr>
       </tbody>

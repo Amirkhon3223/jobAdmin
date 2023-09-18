@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {VacancyApplicationService} from "../../../services/vacancy-application.service";
+import {RequestViewComponent} from "../../../views/admin/request-view/request-view.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-card-table',
@@ -8,11 +10,20 @@ import {VacancyApplicationService} from "../../../services/vacancy-application.s
 export class CardTableComponent implements OnInit {
   applications: any[] = [];
 
-  constructor(private vacancyAppService: VacancyApplicationService) {}
+  constructor(
+    private vacancyAppService: VacancyApplicationService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.vacancyAppService.getApplications().subscribe((data) => {
       this.applications = data;
+    });
+  }
+
+  openModal(application: any) {
+    const dialogRef = this.dialog.open(RequestViewComponent, {
+      data: application, // Передайте данные в модальное окно
     });
   }
 

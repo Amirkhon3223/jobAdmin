@@ -8,13 +8,13 @@ import {Vacancy} from "../models/vacancy";
 })
 export class VacancySettingsService {
 
-  private apiUrl = 'http://localhost:3000/vacancies'
+  private apiUrl = 'http://192.168.1.53:3600/'
 
   constructor(private http: HttpClient) { }
 
 
   addVacancy(vacancy: Vacancy): Observable<Vacancy> {
-    return this.http.post<Vacancy>(`${this.apiUrl}/`, vacancy);
+    return this.http.post<Vacancy>(`${this.apiUrl}`, vacancy);
   }
 
   // Получение списка вакансий

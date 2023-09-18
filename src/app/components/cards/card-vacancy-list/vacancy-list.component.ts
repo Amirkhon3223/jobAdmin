@@ -3,7 +3,7 @@ import {VacancySettingsService} from "../../../services/vacancy-settings.service
 import {Vacancy} from "../../../models/vacancy";
 import {MatDialog} from '@angular/material/dialog';
 import {EditVacancyComponent} from '../../edit-vacancy/edit-vacancy.component';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-card-vacancy-list',
@@ -18,7 +18,6 @@ export class VacancyListComponent implements OnInit {
   currentPage: number = 1; // начальная страница
   totalPages: number = 1; // общее количество страниц
 
-
   constructor(
     private dialog: MatDialog,
     private vacancySetting: VacancySettingsService,
@@ -28,7 +27,7 @@ export class VacancyListComponent implements OnInit {
 
   onPageChanged(pageNumber: number): void {
     this.currentPage = pageNumber;
-    this.getVacancies(); // Обновите список вакансий, например, снова вызвав getVacancies()
+    this.getVacancies();
   }
 
   sanitizeDescription(description: string): SafeHtml {
@@ -47,9 +46,8 @@ export class VacancyListComponent implements OnInit {
           this.vacancies = vacancies;
 
           // Обновляем totalPages на основе общего количества вакансий и количества на странице
-          const vacanciesPerPage = 10; // Замените на количество вакансий, отображаемых на одной странице
+          const vacanciesPerPage = 10; // количество вакансий, отображаемых на одной странице
           this.totalPages = Math.ceil(vacancies.length / vacanciesPerPage);
-
           // Отображаем только вакансии для текущей страницы
           const startIndex = (this.currentPage - 1) * vacanciesPerPage;
           const endIndex = startIndex + vacanciesPerPage;
@@ -70,20 +68,6 @@ export class VacancyListComponent implements OnInit {
       this.getVacancies();
     });
     // this.toast.success('Successfully toasted!')
-  }
-
-  truncateDescription(description: any, maxLength: number): string {
-    if (description.length > maxLength) {
-      let truncated = description.slice(0, maxLength);
-      const lastChar = truncated[truncated.length - 1];
-      // Проверяем, является ли последний символ буквой
-      if (!/[a-zA-Z]/.test(lastChar)) {
-        truncated = truncated.slice(0, -1) // Удаляем последний символ, который не является буквой
-        truncated = truncated.replace(/\s+$/, ''); // Удаляем пробельные символы перед многоточием, если есть
-      }
-      return truncated + '...';
-    }
-    return description.slice(0, -1) + '...';
   }
 
   openEditModal(vacancy: Vacancy): void {

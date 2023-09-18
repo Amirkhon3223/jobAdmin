@@ -1,86 +1,80 @@
+<section>
+  <div class="pt-10 py-10">
+    <h1 class="w-full text-start text-2xl text-gray-900 dark:text-dark-gray_white font-bold pb-5">
+      Список вакансий
+    </h1>
 
-<div class="pt-16 pb-16">
-  <h1 class="w-full text-start text-2xl text-gray-900 dark:text-dark-gray_white font-bold pb-5">
-    Список вакансий
-  </h1>
-
-  <div class="flex justify-between items-center mb-5">
-    <div class="items-center">
-      <button [routerLink]="['/admin/settings']"
-              class="bg-orange-500 p-2 mb-2 rounded text-xl font-medium text-white px-4">
-        Добавить вакансию
-      </button>
-    </div>
-
-<!--    <div class="flex space-x-2 items-center">-->
-<!--      <label for="addCity" class="block text-sm font-medium text-gray-700">Добавить город</label>-->
-<!--      <input-->
-<!--        type="text"-->
-<!--        id="addCity"-->
-<!--        formControlName="addCity"-->
-<!--        class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"-->
-<!--      >-->
-<!--      <button class="py-0 px-2 h-10 bg-red-600 text-white font-medium rounded">ADD</button>-->
-<!--    </div>-->
-  </div>
-
-  <div class="w-12/12 px-6 md:space-x-6 xl:px-0">
-    <!-- Vacancy list -->
-    <div class="rounded-lg  space-y-6 ">
-      <div class="transition-all rounded-lg shadow-lg border-t-2 bg-white border-[1px] border-gray-100 p-3 space-y-2 w-full hover:scale-[1.005]"
-           *ngFor="let vacancy of vacancies">
-        <div class="flex w-full items-center">
-          <h2 class="text-2xl font-semibold cursor-pointer"
-              [routerLink]="['/vacancy', vacancy.id]">{{vacancy?.title}} |
-          </h2>
-          <div class="flex mt-1">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                 stroke-linejoin="round" class="text-slate-400 dark:stroke-secondary" aria-hidden="true">
-              <path d="M18 11.034C18 14.897 12 19 12 19s-6-4.103-6-7.966C6 7.655 8.819 5 12 5s6 2.655 6 6.034Z"/>
-              <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
-            </svg>
-            <p class="text-gray-500 dark:text-dark_text">
-              {{vacancy?.city + ' : ' + vacancy?.region}}
-            </p>
-            <svg width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                 stroke-linejoin="round" class="text-slate-400 dark:stroke-secondary mt-0.5" aria-hidden="true">
-              <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
-            </svg>
-            <p class="flex text-gray-500 dark:text-secondary">
-              <span>Категория: {{vacancy?.type}}</span>
-            </p>
-          </div>
-        </div>
-        <div class="flex items-center">
-          <p class="w-full text-md text-gray-800 dark:text-dark_text hover:text-black dark:hover:text-white cursor-pointer"
-             [routerLink]="['/vacancy', vacancy.id]"
-             [innerHTML]="truncateDescription(vacancy.description, 100)">
-          </p>
-          <div class="w-full flex justify-end items-center space-x-3">
-            <a class="text-blue-600">
-              <button
-                class="p-2 font-normal bg-green-500 dark:bg-secondary text-black rounded-sm hover:scale-[1.06] transition"
-                [routerLink]="['/vacancy', vacancy.id]">Подробнее
-              </button>
-            </a>
-            <a class="text-blue-600">
-              <button
-                class="p-2 font-normal bg-yellow-300 text-black rounded-sm hover:scale-[1.06] transition"
-                (click)="openEditModal(vacancy)">Изменить
-              </button>
-            </a>
-            <a class="text-blue-600">
-              <button
-                (click)="deleteVacancy(vacancy.id)"
-                class="p-2 font-normal bg-red-500 text-white rounded-sm hover:scale-[1.06] transition">
-                Удалить
-              </button>
-            </a>
-            <app-edit-vacancy *ngIf="!showEditModal" [vacancy]="vacancy"></app-edit-vacancy>
-          </div>
-        </div>
+    <div class="flex justify-between items-center mb-5">
+      <div class="items-center">
+        <button [routerLink]="['/admin/settings']"
+                class="bg-orange-500 p-2 mb-2 rounded text-xl font-medium text-white px-4">
+          Добавить вакансию
+        </button>
       </div>
-      <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)"></app-pagination>
+    </div>
+
+    <div class="w-12/12 px-6 md:space-x-6 xl:px-0">
+      <!-- Vacancy list -->
+      <div class="rounded-lg  space-y-6 ">
+        <div
+          class="transition-all rounded-lg shadow-lg border-t-2 bg-white border-[1px] border-gray-100 p-3 space-y-2 w-full hover:scale-[1.005]"
+          *ngFor="let vacancy of vacancies">
+          <div class="flex w-full items-center">
+            <h2 class="text-2xl font-semibold cursor-pointer"
+                [routerLink]="['/vacancy', vacancy.id]">{{vacancy?.title}} |
+            </h2>
+            <div class="flex mt-1">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                   stroke-linejoin="round" class="text-slate-400 dark:stroke-secondary" aria-hidden="true">
+                <path d="M18 11.034C18 14.897 12 19 12 19s-6-4.103-6-7.966C6 7.655 8.819 5 12 5s6 2.655 6 6.034Z"/>
+                <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+              </svg>
+              <p class="text-gray-500 dark:text-dark_text">
+                {{vacancy?.city + ' : ' + vacancy?.region}}
+              </p>
+              <svg width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round"
+                   stroke-linejoin="round" class="text-slate-400 dark:stroke-secondary mt-0.5" aria-hidden="true">
+                <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+              </svg>
+              <p class="flex text-gray-500 dark:text-secondary">
+                <span>Категория: {{vacancy?.type}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <p
+              class="w-full text-md text-gray-800 dark:text-dark_text hover:text-black dark:hover:text-white line-clamp-1 cursor-pointer"
+              [routerLink]="['/vacancy', vacancy.id]"
+              [innerHTML]="vacancy.description">
+            </p>
+            <div class="w-full flex justify-end items-center space-x-3">
+              <a class="text-blue-600">
+                <button
+                  class="p-2 font-normal bg-green-500 dark:bg-secondary text-black rounded-sm hover:scale-[1.06] transition"
+                  [routerLink]="['/vacancy', vacancy.id]">Подробнее
+                </button>
+              </a>
+              <a class="text-blue-600">
+                <button
+                  class="p-2 font-normal bg-yellow-300 text-black rounded-sm hover:scale-[1.06] transition"
+                  (click)="openEditModal(vacancy)">Изменить
+                </button>
+              </a>
+              <a class="text-blue-600">
+                <button
+                  (click)="deleteVacancy(vacancy.id)"
+                  class="p-2 font-normal bg-red-500 text-white rounded-sm hover:scale-[1.06] transition">
+                  Удалить
+                </button>
+              </a>
+              <app-edit-vacancy *ngIf="!showEditModal" [vacancy]="vacancy"></app-edit-vacancy>
+            </div>
+          </div>
+        </div>
+        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
+                        (pageChanged)="onPageChanged($event)"></app-pagination>
+      </div>
     </div>
   </div>
-</div>
+</section>

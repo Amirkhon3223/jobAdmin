@@ -100,5 +100,4 @@ export class PostVacancyComponent implements AfterViewInit{
     });
   }
 
-
 }

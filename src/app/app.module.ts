@@ -24,16 +24,8 @@ import {CardLineChartComponent} from './components/cards/card-line-chart/card-li
 import {CardSettingsComponent} from './components/cards/card-settings/card-settings.component';
 import {CardStatsComponent} from './components/cards/card-stats/card-stats.component';
 import {CardTableComponent} from './components/cards/card-table/card-table.component';
-import {FooterAdminComponent} from './components/footers/footer-admin/footer-admin.component';
-import {FooterSmallComponent} from './components/footers/footer-small/footer-small.component';
 import {HeaderStatsComponent} from './components/headers/header-stats/header-stats.component';
 import {IndexNavbarComponent} from './components/navbars/index-navbar/index-navbar.component';
-import {IndexDropdownComponent} from './components/dropdowns/index-dropdown/index-dropdown.component';
-import {TableDropdownComponent} from './components/dropdowns/table-dropdown/table-dropdown.component';
-import {PagesDropdownComponent} from './components/dropdowns/pages-dropdown/pages-dropdown.component';
-import {
-  NotificationDropdownComponent
-} from './components/dropdowns/notification-dropdown/notification-dropdown.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {UserDropdownComponent} from './components/dropdowns/user-dropdown/user-dropdown.component';
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
@@ -48,6 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from "@angular/material/dialog";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import { ProfileComponent } from './views/admin/profile/profile.component';
+import { RequestViewComponent } from './views/admin/request-view/request-view.component';
+import {FooterAdminComponent} from "./components/footers/footer-admin/footer-admin.component";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -55,13 +49,8 @@ import { ProfileComponent } from './views/admin/profile/profile.component';
     AppComponent,
     DashboardComponent,
     CardLineChartComponent,
-    IndexDropdownComponent,
-    PagesDropdownComponent,
-    TableDropdownComponent,
-    NotificationDropdownComponent,
     UserDropdownComponent,
     SidebarComponent,
-    FooterSmallComponent,
     FooterAdminComponent,
     CardSettingsComponent,
     CardStatsComponent,
@@ -80,6 +69,7 @@ import { ProfileComponent } from './views/admin/profile/profile.component';
     PostVacancyComponent,
     PaginationComponent,
     ProfileComponent,
+    RequestViewComponent,
   ],
   imports: [
     FormsModule, // Добавьте FormsModule

@@ -1,0 +1,40 @@
+<div class="fixed inset-0 flex items-center justify-center lg:p-10 md:p-6 bg-opacity-50 bg-gray-900 h-full">
+  <div
+    class="bg-white dark:bg-dark-secondary rounded-lg shadow-lg w-full justify-center max-w-7xl modal-content border-8 border-white p-5 overflow-y-scroll h-full">
+    <div>
+      <div class="flex justify-between pt-5">
+        <h2 class="text-2xl font-semibold mb-4">Подробная информация</h2>
+        <button (click)="closeModal()" class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Закрыть
+        </button>
+      </div>
+      <div class="mb-4">
+        <p class="text-lg mb-4"><strong>ID:</strong> {{ applicationDetails.id }}</p>
+        <p class="text-lg mb-4"><strong>ФИО:</strong> {{ applicationDetails.fullName }}</p>
+        <p class="text-lg mb-4"><strong>Номер Телефона:</strong> {{ applicationDetails.phoneNumber }}</p>
+        <p class="text-lg mb-4"><strong>Email:</strong> {{ applicationDetails.email }}</p>
+        <div class="flex items-center mb-4">
+          <p class="text-lg items-center"><strong>Резюме:</strong></p>
+          <a href="{{ applicationDetails.resumeFile }}" class="text-xl" target="_blank"> -Скачать резюме</a>
+        </div>
+        <p class="text-lg mb-4"><strong>На должность:</strong> {{ applicationDetails.vacancyTitle }}</p>
+        <p class="text-lg mb-4"><strong>Город:</strong> {{ applicationDetails.vacancyCity }}</p>
+        <div class="mb-4 w-full">
+          <p class="text-lg mb-1"><strong>Письмо:</strong></p>
+          <p>{{ applicationDetails.coverText }}</p>
+        </div>
+      </div>
+      <div class="mb-4 w-full">
+        <p class="text-lg mb-1"><strong>Резюме:</strong></p>
+        <!-- iframe для отображения содержимого документа -->
+        <!--        <iframe [src]="applicationDetails.resumeFile" class="w-full" height="500px"  frameborder="0"></iframe>-->
+        <iframe src="assets/Amir.pdf" class="w-full" height="500px" frameborder="0"></iframe>
+      </div>
+      <div class="flex justify-end p-4">
+        <button (click)="closeModal()" class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

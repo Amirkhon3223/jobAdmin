@@ -7,15 +7,20 @@ import {Observable} from "rxjs";
 })
 export class VacancyApplicationService {
 
-  private apiUrl = ''; // Заменить на URL бекенда БД
+  private apiUrl = 'http://localhost:3001/vacancyrq';
 
   constructor(private http: HttpClient) {}
 
   getApplications(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/applications`);
+    return this.http.get<any[]>(`${this.apiUrl}`);
   }
+
+  getApplicationsById(id: number): Observable<any[]> {
+    return this.http.get<number[]>(`${this.apiUrl}${id}`);
+  }
+
   deleteApplication(applicationId: number): Observable<void> {
-    const url = `${this.apiUrl}/applications/${applicationId}`;
+    const url = `${this.apiUrl}/${applicationId}`;
     return this.http.delete<void>(url);
   }
 }
