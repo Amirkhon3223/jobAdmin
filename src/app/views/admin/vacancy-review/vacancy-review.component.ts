@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VacancySettingsService} from "../../../services/vacancy-settings.service";
 import {Vacancy} from "../../../models/vacancy";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 
 @Component({
@@ -11,51 +10,29 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
   styleUrls: ['./vacancy-review.component.css']
 })
 export class VacancyReviewComponent {
-  vacancy: any;
+  vacancy: Vacancy | null = null
   vacancies: Vacancy[] = []
-  headings: string[] = [];
-  paragraphs: string[] = [];
-  lists: string[][] = [];
+  isLoading = true; // Флаг загрузки
+
 
   constructor(
-    //Вызываем компоненты и сервисы
     private route: ActivatedRoute,
     private vacancyService: VacancySettingsService,
-    private sanitizer: DomSanitizer
-    ) {
-  }
+    public cd: ChangeDetectorRef,
+  ) {}
 
-  sanitizeDescription(description: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(description);
-  }
-
-
-  // Происходит инициализация, берется список(объекты из сервиса, где хранятся данные)...
   ngOnInit(): void {
     this.vacancyService.getVacancies().subscribe(vacancies => {
+      this.isLoading = false; // Окончание загрузки
       this.vacancies = vacancies;
-
-      this.vacancies.forEach(item => {
-        this.headings = []; // Очищаем массив перед обработкой каждой вакансии
-        this.paragraphs = []; // Очищаем массив перед обработкой каждой вакансии
-        this.lists = []; // Очищаем массив перед обработкой каждой вакансии
-
-        if (item.type === 'heading') {
-          this.headings.push(item.description);
-        } else if (item.type === 'paragraph') {
-          this.paragraphs.push(item.description);
-        } else if (item.type === 'list') {
-          this.lists.push(item.description.split('\n')); // Предполагается, что пункты разделены символом новой строки
-        }
-      });
     });
+
     this.route.params.subscribe(params => {
       const vacancyId = +params['id'];
       this.vacancyService.getVacancyById(vacancyId).subscribe(vacancy => {
         this.vacancy = vacancy;
+        this.cd.detectChanges();
       });
     });
   }
-
-
 }

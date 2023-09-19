@@ -102,24 +102,6 @@ export class EditVacancyComponent {
     iframeDoc.execCommand('insertUnorderedList', false, null);
   }
 
-  // Метод для добавления элемента в секцию списка если она есть
-  // addItem(sectionIndex: number): void {
-  //   const newListItem = 'Добавьте свой элемент';
-  //   if (this.vacancy.sections[sectionIndex].type === 'list') {
-  //     this.vacancy.sections[sectionIndex].items.push(newListItem);
-  //   }
-  // }
-  //
-  // removeItem(sectionIndex: number, itemIndex: number): void {
-  //   if (this.vacancy.sections[sectionIndex].type === 'list') {
-  //     this.vacancy.sections[sectionIndex].items.splice(itemIndex, 1);
-  //   }
-  // }
-  //
-  // trackByIndex(index: number, item: any): number {
-  //   return index;
-  // }
-
   updateVacancy(): void {
     const iframe = this.wysiwyg.nativeElement;
     const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;

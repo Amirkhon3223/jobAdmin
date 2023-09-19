@@ -21,7 +21,8 @@
           *ngFor="let vacancy of vacancies">
           <div class="flex w-full items-center">
             <h2 class="text-2xl font-semibold cursor-pointer"
-                [routerLink]="['/vacancy', vacancy.id]">{{vacancy?.title}} |
+                [routerLink]="['vacancy', vacancy.id]">
+              {{vacancy?.title}} |
             </h2>
             <div class="flex mt-1">
               <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -30,7 +31,7 @@
                 <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
               </svg>
               <p class="text-gray-500 dark:text-dark_text">
-                {{vacancy?.city + ' : ' + vacancy?.region}}
+                {{vacancy?.city }}
               </p>
               <svg width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="2"
                    stroke-linecap="round"

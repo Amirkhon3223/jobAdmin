@@ -1,15 +1,16 @@
 <div class="modal fixed inset-0 flex items-center justify-center z-50 bg-opacity-50 bg-gray-900 h-full"
      *ngIf="showModal"
      [class.modal-close-animation]="closeAnimationActive">
-  <div class="bg-white dark:bg-dark-secondary rounded-lg shadow-lg w-full max-w-7xl modal-content border-8 border-white p-4">
+  <div
+    class="bg-white dark:bg-dark-secondary rounded-lg shadow-lg w-full max-w-7xl modal-content border-8 border-white p-4">
     <button class="text-red-600 rounded relative float-right top-4 right-10"
             (click)="closeModal()"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
            stroke-linecap="round" stroke-linejoin="round" class="hover:scale-150 transition">
-        <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6" y1="6" x2="18" y2="18" />
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
 
@@ -91,56 +92,15 @@
               <i class="mdi mdi-format-list-bulleted"></i>
             </button>
           </div>
-          <iframe #wysiwyg class="w-full h-96 overflow-y-auto" [srcdoc]="vacancy.description"></iframe>
+          <iframe #wysiwyg class="w-full h-96 overflow-y-auto"
+                  [srcdoc]="vacancy.description"
+                  [contentEditable]="true"
+                  contenteditable="true">
+          </iframe>
         </div>
       </div>
 
-
-
       <hr class="border-2">
-      <!-- Отображение секций вакансии -->
-<!--      <div *ngFor="let section of vacancy.sections; let i = index" class="mx-auto mb-8 mt-10 space-y-2">-->
-<!--        <div class="flex items-center mt-8">-->
-<!--          <div class="w-3/12 h-full items-center">-->
-<!--            <input-->
-<!--              class="focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"-->
-<!--              type="text" id="sectionTitle{{i}}" name="sectionTitle{{i}}" [(ngModel)]="section.title"-->
-<!--            >-->
-<!--          </div>-->
-<!--          <div class="flex-grow">-->
-<!--        <textarea-->
-<!--          class="w-full border border-gray-200 rounded"-->
-<!--          style="min-height: 120px"-->
-<!--          id="sectionDescribe{{i}}" name="sectionDescribe{{i}}" [(ngModel)]="section.describe"></textarea>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <hr class="border border-gray-300">-->
-<!--        &lt;!&ndash; Если тип секции 'list', отобразите список элементов &ndash;&gt;-->
-<!--        <div *ngIf="section.type === 'list'" class="flex items-center mt-8">-->
-<!--          <div class="w-4/12 h-full items-center">-->
-<!--            <label class="block text-gray-700 text-sm font-bold w-full" for="sectionItems{{i}}">Элементы списка:</label>-->
-<!--          </div>-->
-<!--          <ul id="sectionItems{{i}}" class="w-full space-y-5 flex-grow">-->
-<!--            <li *ngFor="let item of section.items; let j = index; trackBy: trackByIndex"-->
-<!--                class="flex items-center w-full">-->
-<!--              <input-->
-<!--                class="w-full focus:outline-none focus:border-0 focus:border-b focus:ring-0 focus:text-gray-600 p-2 outline-none ring-0 border-0 border-b"-->
-<!--                type="text" id="item{{i}}_{{j}}" name="item{{i}}_{{j}}" [(ngModel)]="section.items[j]">-->
-<!--              <button class="text-red-600 ml-2 rounded" (click)="removeItem(i, j)">-->
-<!--                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"-->
-<!--                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
-<!--                     stroke-linecap="round" stroke-linejoin="round">-->
-<!--                  <line x1="18" y1="6" x2="6" y2="18" />-->
-<!--                  <line x1="6" y1="6" x2="18" y2="18" />-->
-<!--                </svg>-->
-<!--              </button>-->
-<!--            </li>-->
-<!--            <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded mt-2" (click)="addItem(i)">-->
-<!--              Добавить элемент-->
-<!--            </button>-->
-<!--          </ul>-->
-<!--        </div>-->
-<!--      </div>-->
 
       <div class="flex justify-between">
         <button class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"

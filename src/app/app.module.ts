@@ -80,7 +80,7 @@ import {FooterAdminComponent} from "./components/footers/footer-admin/footer-adm
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
     // HotToastModule.forRoot({
     //   reverseOrder: true,
     //   dismissible: true,
