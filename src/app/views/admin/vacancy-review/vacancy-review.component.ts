@@ -1,38 +1,54 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VacancySettingsService} from "../../../services/vacancy-settings.service";
 import {Vacancy} from "../../../models/vacancy";
-
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-vacancy-review',
   templateUrl: './vacancy-review.component.html',
   styleUrls: ['./vacancy-review.component.css']
 })
-export class VacancyReviewComponent {
-  vacancy: Vacancy | null = null
-  vacancies: Vacancy[] = []
-  isLoading = true; // Флаг загрузки
-
+export class VacancyReviewComponent implements OnInit {
+  vacancy: Vacancy | null = null;
+  vacancies: Vacancy[] = [];
+  isLoading = true;
 
   constructor(
+    private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private vacancyService: VacancySettingsService,
-    public cd: ChangeDetectorRef,
-  ) {}
+    private sanitizer: DomSanitizer // Внедрите DomSanitizer здесь
+  ) {
+  }
 
-  ngOnInit(): void {
-    this.vacancyService.getVacancies().subscribe(vacancies => {
-      this.isLoading = false; // Окончание загрузки
-      this.vacancies = vacancies;
-    });
+  sanitizeDescription(description: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(description);
+  }
 
-    this.route.params.subscribe(params => {
-      const vacancyId = +params['id'];
-      this.vacancyService.getVacancyById(vacancyId).subscribe(vacancy => {
-        this.vacancy = vacancy;
+  async ngOnInit() {
+    try {
+      this.vacancies = await this.vacancyService.getVacancies();
+      this.isLoading = false;
+
+      this.route.params.subscribe(async params => {
+        const vacancyId = +params['id'];
+        await this.updateData(vacancyId);
+        console.log(this.vacancy);
+
+        // Добавьте вызов detectChanges после получения данных
         this.cd.detectChanges();
       });
-    });
+    } catch (error) {
+      console.error('An error occurred:', error);
+      throw error;
+    }
+  }
+
+  async updateData(vacancyId: number) {
+    try {
+      this.vacancy = await this.vacancyService.getVacancyById(vacancyId);
+    } catch (error) {
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { VacancySettingsService } from "../../../services/vacancy-settings.service";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Vacancy } from "../../../models/vacancy";
 import { HttpClient } from "@angular/common/http";
 
@@ -78,7 +78,7 @@ export class PostVacancyComponent implements AfterViewInit{
   }
 
 
-  addVacancy() {
+  async addVacancy() {
     const iframe = this.wysiwyg.nativeElement;
     const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
 
@@ -91,13 +91,16 @@ export class PostVacancyComponent implements AfterViewInit{
       }
     }
 
-    this.vacancyService.addVacancy(this.vacancyForm.value).subscribe(newVacancy => {
+    try {
+      const newVacancy = await this.vacancyService.addVacancy(this.vacancyForm.value);
       console.log('Вакансия успешно добавлена:', newVacancy);
       this.vacancies.unshift(newVacancy);
       this.vacancyForm.reset();
-    }, error => {
+    } catch (error) {
       console.error('Ошибка при добавлении вакансии:', error);
-    });
+    }
   }
+
+
 
 }

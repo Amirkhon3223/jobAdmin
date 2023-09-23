@@ -92,11 +92,11 @@
               <i class="mdi mdi-format-list-bulleted"></i>
             </button>
           </div>
-          <iframe #wysiwyg class="w-full h-96 overflow-y-auto"
-                  [srcdoc]="vacancy.description"
-                  [contentEditable]="true"
-                  contenteditable="true">
-          </iframe>
+          <div #wysiwyg class="w-full h-96 overflow-y-auto"
+               [contentEditable]="true"
+               contenteditable="true"
+               [(ngModel)]="vacancy.description">
+          </div>
         </div>
       </div>
 

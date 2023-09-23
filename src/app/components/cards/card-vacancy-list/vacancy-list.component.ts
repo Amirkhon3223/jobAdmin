@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {VacancySettingsService} from "../../../services/vacancy-settings.service";
-import {Vacancy} from "../../../models/vacancy";
-import {MatDialog} from '@angular/material/dialog';
-import {EditVacancyComponent} from '../../edit-vacancy/edit-vacancy.component';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { Component, Input, OnInit } from '@angular/core';
+import { VacancySettingsService } from "../../../services/vacancy-settings.service";
+import { Vacancy } from "../../../models/vacancy";
+import { MatDialog } from '@angular/material/dialog';
+import { EditVacancyComponent } from '../../edit-vacancy/edit-vacancy.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-card-vacancy-list',
@@ -21,7 +21,6 @@ export class VacancyListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private vacancySetting: VacancySettingsService,
-    // private toast: HotToastService,
     private sanitizer: DomSanitizer
   ) {  }
 
@@ -34,49 +33,48 @@ export class VacancyListComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(description);
   }
 
-  ngOnInit(): void {
-    this.getVacancies();
+  async ngOnInit(): Promise<void> {
+    await this.getVacancies(); // Ждем, пока получим вакансии
   }
 
-  getVacancies(): void {
-    this.vacancySetting.getVacancies().subscribe(
-      vacancies => {
-        if (vacancies && Array.isArray(vacancies) && vacancies.length > 0) {
-          // Получаем все вакансии с сервера
-          this.vacancies = vacancies;
+  async getVacancies(): Promise<void> {
+    try {
+      const vacancies = await this.vacancySetting.getVacancies();
+      if (vacancies && Array.isArray(vacancies) && vacancies.length > 0) {
+        // Получаем все вакансии с сервера
+        this.vacancies = vacancies;
 
-          // Обновляем totalPages на основе общего количества вакансий и количества на странице
-          const vacanciesPerPage = 10; // количество вакансий, отображаемых на одной странице
-          this.totalPages = Math.ceil(vacancies.length / vacanciesPerPage);
-          // Отображаем только вакансии для текущей страницы
-          const startIndex = (this.currentPage - 1) * vacanciesPerPage;
-          const endIndex = startIndex + vacanciesPerPage;
-          this.vacancies = this.vacancies.slice(startIndex, endIndex);
-        } else {
-          console.error('Received empty or invalid data from the server:', vacancies);
-        }
-      },
-      error => {
-        console.error('An error occurred while fetching vacancies:', error);
+        // Обновляем totalPages на основе общего количества вакансий и количества на странице
+        const vacanciesPerPage = 10; // количество вакансий, отображаемых на одной странице
+        this.totalPages = Math.ceil(vacancies.length / vacanciesPerPage);
+        // Отображаем только вакансии для текущей страницы
+        const startIndex = (this.currentPage - 1) * vacanciesPerPage;
+        const endIndex = startIndex + vacanciesPerPage;
+        this.vacancies = this.vacancies.slice(startIndex, endIndex);
+      } else {
+        console.error('Received empty or invalid data from the server:', vacancies);
       }
-    );
+    } catch (error) {
+      console.error('An error occurred while fetching vacancies:', error);
+    }
   }
 
-
-  deleteVacancy(id: number): void {
-    this.vacancySetting.deleteVacancy(id).subscribe(() => {
-      this.getVacancies();
-    });
-    // this.toast.success('Successfully toasted!')
+  async deleteVacancy(id: number): Promise<void> {
+    try {
+      await this.vacancySetting.deleteVacancy(id);
+      await this.getVacancies(); // После удаления обновляем список вакансий
+    } catch (error) {
+      console.error('An error occurred while deleting vacancy:', error);
+    }
   }
 
   openEditModal(vacancy: Vacancy): void {
     const dialogRef = this.dialog.open(EditVacancyComponent, {
-      data: {vacancy: vacancy}
+      data: { id: vacancy.id } // Передаем id вакансии
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getVacancies();
+        this.getVacancies(); // После закрытия модального окна обновляем список вакансий
       }
     });
   }

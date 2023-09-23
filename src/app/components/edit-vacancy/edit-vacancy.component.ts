@@ -1,11 +1,10 @@
-import {Component, ElementRef, Inject, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {VacancySettingsService} from "../../services/vacancy-settings.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {HotToastService} from "@ngneat/hot-toast";
-import {FormBuilder} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-
+import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { VacancySettingsService } from "../../services/vacancy-settings.service";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { HotToastService } from "@ngneat/hot-toast";
+import { Observable } from 'rxjs';
+import { Vacancy } from "../../models/vacancy";
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -20,13 +19,7 @@ export class EditVacancyComponent {
 
   closeAnimationActive = false;
 
-  closeModal() {
-    this.closeAnimationActive = true;
-    setTimeout(() => {
-      this.showModal = false;
-      this.closeAnimationActive = false;
-    }, 300); // Подождите 300 миллисекунд (время анимации) перед закрытием модального окна
-  }
+  isLoading = true;
 
   vacancyId: number = 0;
 
@@ -35,28 +28,32 @@ export class EditVacancyComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private vacancyService: VacancySettingsService,
     private router: Router,
+    private route: ActivatedRoute,
     private toast: HotToastService,
-
   ) {
-    this.vacancy = data.vacancy; // Получаем данные о вакансии из MAT_DIALOG_DATA
+    this.vacancyId = data.id;
+  }
+  closeModal(): void {
+    this.showModal = false
   }
 
-  ngOnInit(): void {
-    // Получаем ID вакансии из параметра маршрута
-    this.vacancyId = +this.data.vacancy.id;
-    // Загружаем данные о вакансии
-    this.loadVacancy();
-  }
 
-  loadVacancy(): void {
-    this.vacancyService.getVacancyById(this.vacancyId)
-      .subscribe(vacancy => {
-        this.vacancy = vacancy;
-      });
+  async ngOnInit(): Promise<void> {
+    try {
+      this.isLoading = false;
+    } catch (error) {
+      console.error(error);
+    }
+    const vacancyId = this.data.id;
+    try {
+      this.vacancy = await this.vacancyService.getVacancyById(vacancyId);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   ngAfterViewInit() {
-    if (this.wysiwyg) {
+    if (this.wysiwyg && this.wysiwyg.nativeElement) {
       const iframe = this.wysiwyg.nativeElement;
       const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
 
@@ -74,6 +71,7 @@ export class EditVacancyComponent {
     }
   }
 
+
   init(): void {
     const iframe = this.wysiwyg.nativeElement;
     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
@@ -83,12 +81,15 @@ export class EditVacancyComponent {
   formatBold(): void {
     document.execCommand('bold', false, '');
   }
+
   formatItalic(): void {
     document.execCommand('italic', false, '');
   }
+
   formatUnderline(): void {
     document.execCommand('underline', false, '');
   }
+
   formatHeading(): void {
     const iframe = this.wysiwyg.nativeElement;
     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
@@ -96,26 +97,28 @@ export class EditVacancyComponent {
     h1.textContent = 'Заголовок';
     iframeDoc.body.appendChild(h1);
   }
+
   formatBulletList(): void {
     const iframe = this.wysiwyg.nativeElement;
     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
     iframeDoc.execCommand('insertUnorderedList', false, null);
   }
 
-  updateVacancy(): void {
+  async updateVacancy(): Promise<void> {
     const iframe = this.wysiwyg.nativeElement;
     const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
     const newDescription = iframeDocument.body.innerHTML;
     this.vacancy.description = newDescription;
 
-    // Далее, отправьте обновленное описание на сервер с помощью вашего сервиса
-    this.vacancyService.updateVacancy(this.vacancy).subscribe(() => {
+    try {
+      await this.vacancyService.updateVacancy(this.vacancy);
       // После успешного обновления, перенаправьтесь на страницу списка вакансий
       this.router.navigate(['/admin/dashboard']);
-    });
-
-    this.toast.success('Вакансия обновлена');
-    this.closeModal();
+      this.toast.success('Вакансия обновлена');
+      this.dialogRef.close(); // Закрытие модального окна
+    } catch (error) {
+      console.error(error);
+      // Обработка ошибки, если необходимо
+    }
   }
-
 }

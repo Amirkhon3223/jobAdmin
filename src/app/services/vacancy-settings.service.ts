@@ -1,50 +1,63 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
-import {Vacancy} from "../models/vacancy";
-import {environment} from "../../environments/environment";
+import { Injectable } from '@angular/core';
+import axios from 'axios';
+import { Vacancy } from '../models/vacancy';
+import {API_BASE_URL} from "../../../api.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class VacancySettingsService {
 
-  private apiUrl = `${environment.apiBaseUrl}/vacancy/`;
+  private apiUrl = API_BASE_URL;
 
-  constructor(private http: HttpClient) {
+  constructor() {}
+
+  async addVacancy(vacancy: Vacancy): Promise<Vacancy> {
+    try {
+      const response = await axios.post<Vacancy>(`${this.apiUrl}`, vacancy);
+      return response.data;
+    } catch (error) {
+      console.error('An error occurred:', error);
+      throw error;
+    }
   }
 
-
-  addVacancy(vacancy: Vacancy): Observable<Vacancy> {
-    return this.http.post<Vacancy>(`${this.apiUrl}`, vacancy);
+  async getVacancies(): Promise<Vacancy[]> {
+    try {
+      const response = await axios.get<Vacancy[]>(this.apiUrl);
+      return response.data;
+    } catch (error) {
+      console.error('An error occurred:', error);
+      throw error;
+    }
   }
 
-  // Получение списка вакансий
-  getVacancies(): Observable<Vacancy[]> {
-    return this.http.get<Vacancy[]>(this.apiUrl).pipe(
-      catchError(error => {
-        console.error('An error occurred:', error);
-        return throwError(error);
-      })
-    );
+  async getVacancyById(id: number): Promise<Vacancy> {
+    try {
+      const response = await axios.get<Vacancy>(`${this.apiUrl}/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('An error occurred:', error);
+      throw error;
+    }
   }
 
-  getVacancyById(id: number): Observable<Vacancy> {
-    return this.http.get<Vacancy>(`${this.apiUrl}${id}`);
+  async updateVacancy(vacancy: any): Promise<any> {
+    try {
+      const response = await axios.put<any>(`${this.apiUrl}/${vacancy.id}`, vacancy);
+      return response.data;
+    } catch (error) {
+      console.error('An error occurred:', error);
+      throw error;
+    }
   }
 
-  updateVacancy(vacancy: any): Observable<any> {
-    // Реализация обновления вакансии, отправка данных на сервер
-    return this.http.put<any>(`${this.apiUrl}${vacancy.id}`, vacancy).pipe(
-      catchError(error => {
-        console.error('An error occurred:', error);
-        return throwError(error);
-      })
-    );
-  }
-
-  // Удаление вакансии по ID
-  deleteVacancy(id: number): Observable<void> {
-    return this.http.delete<any>(`${this.apiUrl}${id}`)
+  async deleteVacancy(id: number): Promise<void> {
+    try {
+      await axios.delete<any>(`${this.apiUrl}/${id}`);
+    } catch (error) {
+      console.error('An error occurred:', error);
+      throw error;
+    }
   }
 }
