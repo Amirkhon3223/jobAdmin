@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {AppComponent} from "./app.component";
-import {AppRoutingModule} from "./app-routing.module";
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
 
 import {BrowserModule} from '@angular/platform-browser';
 
@@ -20,44 +20,34 @@ import {LoginComponent} from './views/auth/login/login.component';
 
 // components for views and layouts
 import {AdminNavbarComponent} from './components/navbars/admin-navbar/admin-navbar.component';
-import {CardLineChartComponent} from './components/cards/card-line-chart/card-line-chart.component';
-import {CardSettingsComponent} from './components/cards/card-settings/card-settings.component';
-import {CardStatsComponent} from './components/cards/card-stats/card-stats.component';
 import {CardTableComponent} from './components/cards/card-table/card-table.component';
-import {HeaderStatsComponent} from './components/headers/header-stats/header-stats.component';
-import {IndexNavbarComponent} from './components/navbars/index-navbar/index-navbar.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {UserDropdownComponent} from './components/dropdowns/user-dropdown/user-dropdown.component';
-import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import {CanvasJSAngularChartsModule} from '@canvasjs/angular-charts';
 import {VacancyListComponent} from './components/cards/card-vacancy-list/vacancy-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
 import {VacancyReviewComponent} from './views/admin/vacancy-review/vacancy-review.component';
 import {EditVacancyComponent} from './components/edit-vacancy/edit-vacancy.component';
-import {RouterModule} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostVacancyComponent} from './components/cards/post-vacancy/post-vacancy.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDialogModule} from "@angular/material/dialog";
-import {PaginationComponent} from "./components/pagination/pagination.component";
-import { ProfileComponent } from './views/admin/profile/profile.component';
-import { RequestViewComponent } from './views/admin/request-view/request-view.component';
-import {FooterAdminComponent} from "./components/footers/footer-admin/footer-admin.component";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+import {PaginationComponent} from './components/pagination/pagination.component';
+import {ProfileComponent} from './views/admin/profile/profile.component';
+import {RequestViewComponent} from './views/admin/request-view/request-view.component';
+import {FooterAdminComponent} from './components/footers/footer-admin/footer-admin.component';
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     DashboardComponent,
-    CardLineChartComponent,
     UserDropdownComponent,
     SidebarComponent,
     FooterAdminComponent,
-    CardSettingsComponent,
-    CardStatsComponent,
     CardTableComponent,
-    HeaderStatsComponent,
     AdminNavbarComponent,
-    IndexNavbarComponent,
     AdminComponent,
     AuthComponent,
     SettingsComponent,
@@ -72,8 +62,8 @@ import {FooterAdminComponent} from "./components/footers/footer-admin/footer-adm
     RequestViewComponent,
   ],
   imports: [
-    FormsModule, // Добавьте FormsModule
-    RouterModule, // Добавьте RouterModule
+    FormsModule,
+    RouterModule,
     BrowserModule,
     HttpClientModule,
     CanvasJSAngularChartsModule,

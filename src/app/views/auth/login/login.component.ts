@@ -1,7 +1,7 @@
 // login.component.ts
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../../services/auth.service";
-import {Router} from "@angular/router";
+import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,13 +21,12 @@ export class LoginComponent implements OnInit {
     const password = (document.getElementById('password') as HTMLInputElement).value;
     this.authService.login(username, password).subscribe((response) => {
       if (response.message === 'Аутентификация успешна') {
-        // Сохраните данные пользователя в локальное хранилище
+        // сахраняем данные пользователя в локальное хранилище
         localStorage.setItem('user', JSON.stringify(response.user));
-
-        // Перенаправьте пользователя на защищенные страницы
+        // Перенаправляем пользователя на защищенные страницы
         this.router.navigate(['/admin/dashboard']);
       }
     });
   }
-
+// не судить строго код :)
 }

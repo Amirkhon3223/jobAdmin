@@ -1,10 +1,8 @@
-import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { VacancySettingsService } from "../../services/vacancy-settings.service";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { HotToastService } from "@ngneat/hot-toast";
-import { Observable } from 'rxjs';
-import { Vacancy } from "../../models/vacancy";
+import {Component, ElementRef, Inject, Input, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {VacancySettingsService} from '../../services/vacancy-settings.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {HotToastService} from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -12,16 +10,13 @@ import { Vacancy } from "../../models/vacancy";
   styleUrls: ['./edit-vacancy.component.css']
 })
 export class EditVacancyComponent {
-  @ViewChild('wysiwyg', { static: true }) wysiwyg!: ElementRef;
-
+  @ViewChild('wysiwyg', {static: true}) wysiwyg!: ElementRef;
   @Input() showModal = true;
   @Input() vacancy: any = {};
 
   closeAnimationActive = false;
-
   isLoading = true;
-
-  vacancyId: number = 0;
+  vacancyId = 0;
 
   constructor(
     public dialogRef: MatDialogRef<EditVacancyComponent>,
@@ -33,10 +28,10 @@ export class EditVacancyComponent {
   ) {
     this.vacancyId = data.id;
   }
+
   closeModal(): void {
     this.showModal = false
   }
-
 
   async ngOnInit(): Promise<void> {
     try {
@@ -112,13 +107,12 @@ export class EditVacancyComponent {
 
     try {
       await this.vacancyService.updateVacancy(this.vacancy);
-      // После успешного обновления, перенаправьтесь на страницу списка вакансий
+      // После успешного обновления, идем короче на страницу списка вакансий
       this.router.navigate(['/admin/dashboard']);
       this.toast.success('Вакансия обновлена');
       this.dialogRef.close(); // Закрытие модального окна
     } catch (error) {
-      console.error(error);
-      // Обработка ошибки, если необходимо
+      throw (error);
     }
   }
 }

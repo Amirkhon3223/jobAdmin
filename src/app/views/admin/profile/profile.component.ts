@@ -1,15 +1,15 @@
-// Ваш Angular компонент (например, ProfileComponent)
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
-  userProfile: any; // Переменная для хранения профиля пользователя
+  userProfile: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     // Выполняем HTTP GET запрос для получения профиля пользователя

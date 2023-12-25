@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Vacancy } from '../models/vacancy';
-import {API_BASE_URL} from "../../../api.config";
+import {API_BASE_URL} from '../../../api.config';
 
 @Injectable({
   providedIn: 'root'

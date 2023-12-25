@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +17,6 @@ export class SidebarComponent implements OnInit {
 
   // Метод для выхода из аккаунта
   logout(): void {
-    this.authService.logout(); // Вызываем метод logout из AuthService
+    this.authService.logout();
   }
 }

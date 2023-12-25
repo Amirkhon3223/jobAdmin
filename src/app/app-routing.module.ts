@@ -12,21 +12,21 @@ import {TablesComponent} from './views/admin/tables/tables.component';
 
 // auth views
 import {LoginComponent} from './views/auth/login/login.component';
-import {VacancyReviewComponent} from "./views/admin/vacancy-review/vacancy-review.component";
-import {NgForOf} from "@angular/common";
-import {AuthGuard} from "./auth.guard";
+import {VacancyReviewComponent} from './views/admin/vacancy-review/vacancy-review.component';
+import {NgForOf} from '@angular/common';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   // admin views
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthGuard], // Применить AuthGuard ко всем admin-маршрутам
+    canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: 'tables', component: TablesComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {path: 'dashboard', component: DashboardComponent},
+      {path: 'settings', component: SettingsComponent},
+      {path: 'tables', component: TablesComponent},
+      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     ],
   },
   {path: 'vacancy/:id', component: VacancyReviewComponent},
@@ -36,13 +36,13 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      {path: 'login', component: LoginComponent},
+      {path: '', redirectTo: 'login', pathMatch: 'full'},
     ],
   },
 
-  { path: '', redirectTo: 'admin/dashboard', pathMatch: 'full' }, // По умолчанию перенаправляем на админскую панель
-  { path: '**', redirectTo: 'admin/dashboard', pathMatch: 'full' }, // В случае неверного маршрута также перенаправляем на админскую панель
+  {path: '', redirectTo: 'admin/dashboard', pathMatch: 'full'}, // По умолчанию перенаправляем на админскую панель
+  {path: '**', redirectTo: 'admin/dashboard', pathMatch: 'full'}, // В случае неверного маршрута также перенаправляем на админскую панель
 ];
 
 @NgModule({

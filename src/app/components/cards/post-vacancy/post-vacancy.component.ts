@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { VacancySettingsService } from "../../../services/vacancy-settings.service";
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Vacancy } from "../../../models/vacancy";
-import { HttpClient } from "@angular/common/http";
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { VacancySettingsService } from '../../../services/vacancy-settings.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Vacancy } from '../../../models/vacancy';
 
 @Component({
   selector: 'app-post-vacancy',
@@ -17,11 +16,8 @@ export class PostVacancyComponent implements AfterViewInit{
   vacancies: Vacancy[] = [];
 
   constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
     private vacancyService: VacancySettingsService,
     private fb: FormBuilder,
-    private http: HttpClient
   ) {
     this.vacancyForm = this.fb.group({
       title: ['', Validators.required],

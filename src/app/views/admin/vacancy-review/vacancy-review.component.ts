@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {VacancySettingsService} from "../../../services/vacancy-settings.service";
-import {Vacancy} from "../../../models/vacancy";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {ActivatedRoute} from '@angular/router';
+import {VacancySettingsService} from '../../../services/vacancy-settings.service';
+import {Vacancy} from '../../../models/vacancy';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vacancy-review',
@@ -31,16 +31,12 @@ export class VacancyReviewComponent implements OnInit {
       this.vacancies = await this.vacancyService.getVacancies();
       this.isLoading = false;
 
-      this.route.params.subscribe(async params => {
-        const vacancyId = +params['id'];
+      this.route.params.subscribe(async ({id}) => {
+        const vacancyId = +id;
         await this.updateData(vacancyId);
-        console.log(this.vacancy);
-
-        // Добавьте вызов detectChanges после получения данных
         this.cd.detectChanges();
       });
     } catch (error) {
-      console.error('An error occurred:', error);
       throw error;
     }
   }

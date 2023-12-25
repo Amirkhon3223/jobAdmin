@@ -1,7 +1,7 @@
-// import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
-// import {VacancySettingsService} from "../../../services/vacancy-settings.service";
+// import {AfterViewInit, Component, ElementRef} from '@angular/core';
+// import {VacancySettingsService} from '../../../services/vacancy-settings.service';
 // import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
-// import {Vacancy} from "../../../models/vacancy"; // Импортируйте FormBuilder и FormArray
+// import {Vacancy} from '../../../models/vacancy';
 //
 // @Component({
 //   selector: 'app-post-vacancy',
@@ -11,18 +11,17 @@
 // export class PostVacancyComponent {
 //
 //
-//   vacancyForm: FormGroup; // Инициализируйте FormGroup
+//   vacancyForm: FormGroup;
 //   vacancies!: Vacancy[];
-//   lists: FormArray; // Добавьте это поле
+//   lists: FormArray;
 //
 //   constructor(
 //     private elementRef: ElementRef,
 //     private vacancyService: VacancySettingsService,
-//     private fb: FormBuilder // Внедрите FormBuilder
+//     private fb: FormBuilder
 //   ) {
-//     this.lists = this.fb.array([]); // Инициализируйте список здесь
+//     this.lists = this.fb.array([]);
 //
-//     // Инициализация массива vacancies
 //     this.vacancies = [];
 //
 //     this.vacancyForm = this.fb.group({
@@ -33,7 +32,7 @@
 //       city: [''],
 //       employmentType: [''],
 //       sections: this.fb.array([]),
-//       // lists: this.lists // Свяжите список с формой
+//       // lists: this.lists
 //     });
 //   }
 //
@@ -92,15 +91,12 @@
 //   addVacancy() {
 //     this.vacancyService.addVacancy(this.vacancyForm.value).subscribe(newVacancy => {
 //       console.log('Вакансия успешно добавлена:', newVacancy);
-//
-//       // После успешного добавления, добавьте новую вакансию в начало массива
 //       this.vacancies.unshift(newVacancy);
 //
-//       // Очистите форму, если это необходимо
 //       this.vacancyForm.reset();
 //     }, error => {
 //       console.error('Ошибка при добавлении вакансии:', error);
 //     });
 //   }
 // }
-
+//

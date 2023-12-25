@@ -1,9 +1,5 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {VacancyApplicationService} from "../../../services/vacancy-application.service";
-import {data} from "autoprefixer";
-import _default from "chart.js/dist/core/core.layouts";
-import update = _default.update;
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-request-view',

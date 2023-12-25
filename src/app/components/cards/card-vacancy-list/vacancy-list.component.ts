@@ -1,28 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { VacancySettingsService } from "../../../services/vacancy-settings.service";
-import { Vacancy } from "../../../models/vacancy";
-import { MatDialog } from '@angular/material/dialog';
-import { EditVacancyComponent } from '../../edit-vacancy/edit-vacancy.component';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {Component, Input, OnInit} from '@angular/core';
+import {VacancySettingsService} from '../../../services/vacancy-settings.service';
+import {Vacancy} from '../../../models/vacancy';
+import {MatDialog} from '@angular/material/dialog';
+import {EditVacancyComponent} from '../../edit-vacancy/edit-vacancy.component';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-card-vacancy-list',
   templateUrl: './vacancy-list.component.html',
-  styleUrls: ['./vacancy-list.component.css']
 })
 
 export class VacancyListComponent implements OnInit {
   vacancies!: Vacancy[];
   showEditModal = true;
 
-  currentPage: number = 1; // начальная страница
-  totalPages: number = 1; // общее количество страниц
+  currentPage = 1;
+  totalPages = 1;
 
   constructor(
     private dialog: MatDialog,
     private vacancySetting: VacancySettingsService,
     private sanitizer: DomSanitizer
-  ) {  }
+  ) {
+  }
 
   onPageChanged(pageNumber: number): void {
     this.currentPage = pageNumber;
@@ -44,8 +44,8 @@ export class VacancyListComponent implements OnInit {
         // Получаем все вакансии с сервера
         this.vacancies = vacancies;
 
-        // Обновляем totalPages на основе общего количества вакансий и количества на странице
-        const vacanciesPerPage = 10; // количество вакансий, отображаемых на одной странице
+        // Обновляем totalPages на основе общего кол.вакансий и кол.на странице
+        const vacanciesPerPage = 10; // кол.вакансий, отображаемых на одной странице
         this.totalPages = Math.ceil(vacancies.length / vacanciesPerPage);
         // Отображаем только вакансии для текущей страницы
         const startIndex = (this.currentPage - 1) * vacanciesPerPage;
@@ -62,7 +62,7 @@ export class VacancyListComponent implements OnInit {
   async deleteVacancy(id: number): Promise<void> {
     try {
       await this.vacancySetting.deleteVacancy(id);
-      await this.getVacancies(); // После удаления обновляем список вакансий
+      await this.getVacancies(); // После удаления апдейт список вакансий
     } catch (error) {
       console.error('An error occurred while deleting vacancy:', error);
     }
@@ -70,11 +70,11 @@ export class VacancyListComponent implements OnInit {
 
   openEditModal(vacancy: Vacancy): void {
     const dialogRef = this.dialog.open(EditVacancyComponent, {
-      data: { id: vacancy.id } // Передаем id вакансии
+      data: {id: vacancy.id} // Передаем id вакансии
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getVacancies(); // После закрытия модального окна обновляем список вакансий
+        this.getVacancies(); // После закрытия модального окна апдейтим список вакансий
       }
     });
   }
