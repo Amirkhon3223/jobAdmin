@@ -15,8 +15,8 @@ Open and run server.js  but before open terminal and run this commands:
 `node server.js`
 
 ## Then if u open server js an angular project you need to login. And this is login and password. Also u can change it in server.js file
-password and login:
-Login: `user`
+password and login:<br/>
+Login: `user` <br/>
 Password: `user`
 
 ## Code scaffolding
