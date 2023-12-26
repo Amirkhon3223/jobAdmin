@@ -15,6 +15,8 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+
+// Login and password for admin panel :)
 const users = [
     {username: 'user', password: 'user'},
 ];
