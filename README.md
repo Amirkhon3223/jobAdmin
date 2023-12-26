@@ -6,6 +6,19 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+
+## SERVER.JS
+Open and run server.js  but before open terminal and run this commands:
+
+`npm init -y`
+`npm install express cors body-parser express-session`
+`node server.js`
+
+## Then if u open server js an angular project you need to login. And this is login and password. Also u can change it in server.js file
+password and login:
+Login: `user`
+Password: `user`
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
